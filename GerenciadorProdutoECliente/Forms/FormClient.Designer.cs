@@ -53,9 +53,12 @@
             this.lblPhone = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.lblSearch = new System.Windows.Forms.Label();
-            this.bntNew = new System.Windows.Forms.Button();
+            this.btnNew = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.lstClients = new System.Windows.Forms.ListBox();
+            this.rbtnIndividual = new System.Windows.Forms.RadioButton();
+            this.rbtnLegalEntity = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -249,6 +252,7 @@
             this.btnSearch.TabIndex = 22;
             this.btnSearch.Text = "Busar";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // lblSearch
             // 
@@ -259,41 +263,78 @@
             this.lblSearch.TabIndex = 23;
             this.lblSearch.Text = "Insira Nome, CPF ou CNPJ para busca:";
             // 
-            // bntNew
+            // btnNew
             // 
-            this.bntNew.Location = new System.Drawing.Point(76, 347);
-            this.bntNew.Name = "bntNew";
-            this.bntNew.Size = new System.Drawing.Size(75, 23);
-            this.bntNew.TabIndex = 24;
-            this.bntNew.Text = "Novo";
-            this.bntNew.UseVisualStyleBackColor = true;
+            this.btnNew.Location = new System.Drawing.Point(457, 235);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(75, 23);
+            this.btnNew.TabIndex = 24;
+            this.btnNew.Text = "Novo";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(171, 346);
+            this.btnUpdate.Location = new System.Drawing.Point(552, 234);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 25;
             this.btnUpdate.Text = "Atualizar";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(270, 346);
+            this.btnDelete.Location = new System.Drawing.Point(651, 234);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 26;
             this.btnDelete.Text = "Deletar";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // lstClients
+            // 
+            this.lstClients.FormattingEnabled = true;
+            this.lstClients.Location = new System.Drawing.Point(51, 324);
+            this.lstClients.Name = "lstClients";
+            this.lstClients.Size = new System.Drawing.Size(694, 95);
+            this.lstClients.TabIndex = 27;
+            this.lstClients.SelectedIndexChanged += new System.EventHandler(this.lstClients_SelectedIndexChanged);
+            // 
+            // rbtnIndividual
+            // 
+            this.rbtnIndividual.AutoSize = true;
+            this.rbtnIndividual.Location = new System.Drawing.Point(499, 123);
+            this.rbtnIndividual.Name = "rbtnIndividual";
+            this.rbtnIndividual.Size = new System.Drawing.Size(90, 17);
+            this.rbtnIndividual.TabIndex = 28;
+            this.rbtnIndividual.TabStop = true;
+            this.rbtnIndividual.Text = "Pessoa Fisica";
+            this.rbtnIndividual.UseVisualStyleBackColor = true;
+            // 
+            // rbtnLegalEntity
+            // 
+            this.rbtnLegalEntity.AutoSize = true;
+            this.rbtnLegalEntity.Location = new System.Drawing.Point(595, 123);
+            this.rbtnLegalEntity.Name = "rbtnLegalEntity";
+            this.rbtnLegalEntity.Size = new System.Drawing.Size(99, 17);
+            this.rbtnLegalEntity.TabIndex = 29;
+            this.rbtnLegalEntity.TabStop = true;
+            this.rbtnLegalEntity.Text = "Pessoa Juridica";
+            this.rbtnLegalEntity.UseVisualStyleBackColor = true;
             // 
             // FormClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.rbtnLegalEntity);
+            this.Controls.Add(this.rbtnIndividual);
+            this.Controls.Add(this.lstClients);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUpdate);
-            this.Controls.Add(this.bntNew);
+            this.Controls.Add(this.btnNew);
             this.Controls.Add(this.lblSearch);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.lblPhone);
@@ -353,8 +394,11 @@
         private System.Windows.Forms.Label lblPhone;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label lblSearch;
-        private System.Windows.Forms.Button bntNew;
+        private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.ListBox lstClients;
+        private System.Windows.Forms.RadioButton rbtnIndividual;
+        private System.Windows.Forms.RadioButton rbtnLegalEntity;
     }
 }

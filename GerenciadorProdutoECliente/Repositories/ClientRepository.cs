@@ -15,9 +15,6 @@ namespace GerenciadorProdutoECliente.Repositories
         // Método para adicionar um novo cliente no banco
         public bool AddClient(Client client)
         {
-            // Validação do CPF ou CNPJ
-            client.ValidateCpfOrCnpj();
-
             using (NpgsqlConnection connection = DBConnection.OpenConnection())
             {
                 string query = @"
@@ -27,13 +24,15 @@ namespace GerenciadorProdutoECliente.Repositories
 
                 using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                 {
+                    char clientTypeChar = client.ClientType == ClientType.Individual ? 'I' : 'J';
+
                     // Parâmetros principais do cliente
                     command.Parameters.AddWithValue("@Name", client.Name);
                     command.Parameters.AddWithValue("@Cpf", client.Cpf ?? (object)DBNull.Value); // Se for nulo, passa DBNull
                     command.Parameters.AddWithValue("@Cnpj", client.Cnpj ?? (object)DBNull.Value); // Se for nulo, passa DBNull
                     command.Parameters.AddWithValue("@Phone", client.Phone);
                     command.Parameters.AddWithValue("@Email", client.Email);
-                    command.Parameters.AddWithValue("@ClientType", client.ClientType.ToString());
+                    command.Parameters.AddWithValue("@ClientType", clientTypeChar);
 
                     // Obtém o ID gerado pelo banco após o INSERT
                     client.Id = (int)command.ExecuteScalar();
@@ -63,14 +62,11 @@ namespace GerenciadorProdutoECliente.Repositories
         // Método para atualizar um cliente existente no banco de dados
         public bool UpdateClient(Client client)
         {
-            // Validação do CPF ou CNPJ
-            client.ValidateCpfOrCnpj();
-
             using (NpgsqlConnection connection = DBConnection.OpenConnection())
             {
                 string query = @"
             UPDATE clientes
-            SET nome = @Name, cpf = @Cpf, cnpj = @Cnpj, telefone = @Phone, email = @Email, tipo_cliente = @ClientType
+            SET nome = @Name, telefone = @Phone, email = @Email
             WHERE id = @Id;";
 
                 using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
@@ -78,11 +74,8 @@ namespace GerenciadorProdutoECliente.Repositories
                     // Parâmetros principais do cliente
                     command.Parameters.AddWithValue("@Id", client.Id);
                     command.Parameters.AddWithValue("@Name", client.Name);
-                    command.Parameters.AddWithValue("@Cpf", client.Cpf ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@Cnpj", client.Cnpj ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Phone", client.Phone);
                     command.Parameters.AddWithValue("@Email", client.Email);
-                    command.Parameters.AddWithValue("@ClientType", client.ClientType.ToString());
 
                     command.ExecuteNonQuery();
                 }
@@ -152,15 +145,48 @@ namespace GerenciadorProdutoECliente.Repositories
             }
         }
 
-        private Client SearchByCpf(string cpf)
+        private Address SearchAddressByClientId(int clientId, NpgsqlConnection connection)
+        {
+            string addressQuery = "SELECT * FROM enderecos WHERE cliente_id = @ClientId LIMIT 1"; // Limitado a um único endereço
+
+            using (NpgsqlCommand addressCommand = new NpgsqlCommand(addressQuery, connection))
+            {
+                addressCommand.Parameters.AddWithValue("@ClientId", clientId);
+
+                using (NpgsqlDataReader addressReader = addressCommand.ExecuteReader())
+                {
+                    if (addressReader.Read())  // Se encontrar o endereço
+                    {
+                        // Retorna o endereço encontrado
+                        return new Address
+                        {
+                            Id = addressReader.GetInt32(addressReader.GetOrdinal("id")),
+                            ZipCode = addressReader.GetString(addressReader.GetOrdinal("cep")),
+                            Street = addressReader.GetString(addressReader.GetOrdinal("rua")),
+                            Number = addressReader.GetString(addressReader.GetOrdinal("numero")),
+                            Complement = addressReader.IsDBNull(addressReader.GetOrdinal("complemento")) ? null : addressReader.GetString(addressReader.GetOrdinal("complemento")),
+                            Neighborhood = addressReader.GetString(addressReader.GetOrdinal("bairro")),
+                            City = addressReader.GetString(addressReader.GetOrdinal("cidade")),
+                            State = addressReader.GetString(addressReader.GetOrdinal("uf")),
+                            ClientId = clientId
+                        };
+                    }
+                }
+            }
+
+            return null;  // Retorna null caso o endereço não seja encontrado
+        }
+
+        private List<Client> SearchByCpf(string cpf)
         {
             // Remove a formatação do CPF para garantir que a busca seja feita apenas com os números
             string cleanedCpf = new string(cpf.Where(char.IsDigit).ToArray());
+            var clients = new List<Client>();  // Lista para armazenar os clientes encontrados
 
             using (NpgsqlConnection connection = DBConnection.OpenConnection())
             {
                 string query = @"
-SELECT id, nome, cpf, cnpj, telefone, email, client_type
+SELECT id, nome, cpf, cnpj, telefone, email, tipo_cliente
 FROM clientes
 WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '/', ''), '-', '') = @Cpf";  // Busca pelo CPF sem formatação
 
@@ -170,7 +196,7 @@ WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '/', ''), '-', '') = @Cpf";  // Bus
 
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
-                        if (reader.Read())  // Se encontrar o cliente
+                        while (reader.Read())  // Agora usamos um while para percorrer todos os resultados
                         {
                             Client client = new Client
                             {
@@ -183,53 +209,36 @@ WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '/', ''), '-', '') = @Cpf";  // Bus
                                 ClientType = (ClientType)reader.GetChar(6)  // Convertendo tipo_cliente de char para enum
                             };
 
-                            // Busca o endereço associado ao cliente.
-                            string addressQuery = "SELECT * FROM enderecos WHERE cliente_id = @ClientId LIMIT 1"; // Limitado a um único endereço
-                            using (NpgsqlCommand addressCommand = new NpgsqlCommand(addressQuery, connection))
+                            // Busca o endereço associado ao cliente em uma nova conexão
+                            using (NpgsqlConnection addressConnection = DBConnection.OpenConnection())
                             {
-                                addressCommand.Parameters.AddWithValue("@ClientId", client.Id);
-
-                                using (NpgsqlDataReader addressReader = addressCommand.ExecuteReader())
-                                {
-                                    if (addressReader.Read())  // Se encontrar o endereço
-                                    {
-                                        // Atribui o primeiro endereço encontrado ao cliente
-                                        client.Address = new Address
-                                        {
-                                            Id = addressReader.GetInt32(addressReader.GetOrdinal("id")),
-                                            ZipCode = addressReader.GetString(addressReader.GetOrdinal("cep")),
-                                            Street = addressReader.GetString(addressReader.GetOrdinal("rua")),
-                                            Number = addressReader.GetString(addressReader.GetOrdinal("numero")),
-                                            Complement = addressReader.IsDBNull(addressReader.GetOrdinal("complemento")) ? null : addressReader.GetString(addressReader.GetOrdinal("complemento")),
-                                            Neighborhood = addressReader.GetString(addressReader.GetOrdinal("bairro")),
-                                            City = addressReader.GetString(addressReader.GetOrdinal("cidade")),
-                                            State = addressReader.GetString(addressReader.GetOrdinal("uf")),
-                                            ClientId = client.Id
-                                        };
-                                    }
-                                }
+                                client.Address = SearchAddressByClientId(client.Id, addressConnection);
                             }
 
-                            return client;  // Retorna o cliente com o endereço associado
+                            clients.Add(client);  // Adiciona o cliente à lista
                         }
                     }
                 }
             }
 
-            return null;  // Retorna null se o CPF não for encontrado
+            return clients.Count > 0 ? clients : null;  // Retorna a lista de clientes encontrados, ou null se não houver
         }
 
 
-        private Client SearchByCnpj(string cnpj)
+
+
+        private List<Client> SearchByCnpj(string cnpj)
         {
             // Remove a formatação do CNPJ para garantir que a busca seja feita apenas com os números
             string cleanedCnpj = new string(cnpj.Where(char.IsDigit).ToArray());
+            var clients = new List<Client>();  // Lista para armazenar os clientes encontrados
+
             using (NpgsqlConnection connection = DBConnection.OpenConnection())
             {
                 string query = @"
-        SELECT id, nome, cpf, cnpj, telefone, email, tipo_cliente
-        FROM clientes
-        WHERE REPLACE(REPLACE(REPLACE(cnpj, '.', ''), '/', ''), '-', '') = @Cnpj";  // Busca pelo CNPJ sem formatação
+SELECT id, nome, cpf, cnpj, telefone, email, tipo_cliente
+FROM clientes
+WHERE REPLACE(REPLACE(REPLACE(cnpj, '.', ''), '/', ''), '-', '') = @Cnpj";  // Busca pelo CNPJ sem formatação
 
                 using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                 {
@@ -237,7 +246,7 @@ WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '/', ''), '-', '') = @Cpf";  // Bus
 
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
-                        if (reader.Read())  // Se encontrar o cliente
+                        while (reader.Read())  // Agora usamos um while para percorrer todos os resultados
                         {
                             Client client = new Client
                             {
@@ -250,49 +259,32 @@ WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '/', ''), '-', '') = @Cpf";  // Bus
                                 ClientType = (ClientType)reader.GetChar(6)  // Convertendo tipo_cliente de char para enum
                             };
 
-                            // Busca o endereço associado ao cliente.
-                            string addressQuery = "SELECT * FROM enderecos WHERE cliente_id = @ClientId LIMIT 1"; // Limitado a um único endereço
-                            using (NpgsqlCommand addressCommand = new NpgsqlCommand(addressQuery, connection))
+                            // Busca o endereço associado ao cliente em uma nova conexão
+                            using (NpgsqlConnection addressConnection = DBConnection.OpenConnection())
                             {
-                                addressCommand.Parameters.AddWithValue("@ClientId", client.Id);
-
-                                using (NpgsqlDataReader addressReader = addressCommand.ExecuteReader())
-                                {
-                                    if (addressReader.Read())  // Se encontrar o endereço
-                                    {
-                                        // Atribui o primeiro endereço encontrado ao cliente
-                                        client.Address = new Address
-                                        {
-                                            Id = addressReader.GetInt32(addressReader.GetOrdinal("id")),
-                                            ZipCode = addressReader.GetString(addressReader.GetOrdinal("cep")),
-                                            Street = addressReader.GetString(addressReader.GetOrdinal("rua")),
-                                            Number = addressReader.GetString(addressReader.GetOrdinal("numero")),
-                                            Complement = addressReader.IsDBNull(addressReader.GetOrdinal("complemento")) ? null : addressReader.GetString(addressReader.GetOrdinal("complemento")),
-                                            Neighborhood = addressReader.GetString(addressReader.GetOrdinal("bairro")),
-                                            City = addressReader.GetString(addressReader.GetOrdinal("cidade")),
-                                            State = addressReader.GetString(addressReader.GetOrdinal("uf")),
-                                            ClientId = client.Id
-                                        };
-                                    }
-                                }
+                                client.Address = SearchAddressByClientId(client.Id, addressConnection);
                             }
 
-                            return client;
+                            clients.Add(client);  // Adiciona o cliente à lista
                         }
                     }
                 }
             }
-            return null;  // Retorna null se o CNPJ não for encontrado
+
+            return clients.Count > 0 ? clients : null;  // Retorna a lista de clientes encontrados, ou null se não houver
         }
 
-        private Client SearchByName(string name)
+
+        private List<Client> SearchByName(string name)
         {
+            var clients = new List<Client>();  // Lista para armazenar os clientes encontrados
+
             using (NpgsqlConnection connection = DBConnection.OpenConnection())
             {
                 string query = @"
-        SELECT id, nome, cpf, cnpj, telefone, email, tipo_cliente
-        FROM clientes
-        WHERE nome ILIKE @Name";  // ILIKE faz uma busca insensível a maiúsculas/minúsculas
+SELECT id, nome, cpf, cnpj, telefone, email, tipo_cliente
+FROM clientes
+WHERE nome ILIKE @Name";  // ILIKE faz uma busca insensível a maiúsculas/minúsculas
 
                 using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                 {
@@ -300,7 +292,7 @@ WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '/', ''), '-', '') = @Cpf";  // Bus
 
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
-                        if (reader.Read())  // Se encontrar o cliente
+                        while (reader.Read())  // Agora usamos um while para percorrer todos os resultados
                         {
                             Client client = new Client
                             {
@@ -313,42 +305,23 @@ WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '/', ''), '-', '') = @Cpf";  // Bus
                                 ClientType = (ClientType)reader.GetChar(6)  // Convertendo tipo_cliente de char para enum
                             };
 
-                            // Busca o endereço associado ao cliente.
-                            string addressQuery = "SELECT * FROM enderecos WHERE cliente_id = @ClientId LIMIT 1"; // Limitado a um único endereço
-                            using (NpgsqlCommand addressCommand = new NpgsqlCommand(addressQuery, connection))
+                            // Busca o endereço associado ao cliente em uma nova conexão
+                            using (NpgsqlConnection addressConnection = DBConnection.OpenConnection())
                             {
-                                addressCommand.Parameters.AddWithValue("@ClientId", client.Id);
-
-                                using (NpgsqlDataReader addressReader = addressCommand.ExecuteReader())
-                                {
-                                    if (addressReader.Read())  // Se encontrar o endereço
-                                    {
-                                        // Atribui o primeiro endereço encontrado ao cliente
-                                        client.Address = new Address
-                                        {
-                                            Id = addressReader.GetInt32(addressReader.GetOrdinal("id")),
-                                            ZipCode = addressReader.GetString(addressReader.GetOrdinal("cep")),
-                                            Street = addressReader.GetString(addressReader.GetOrdinal("rua")),
-                                            Number = addressReader.GetString(addressReader.GetOrdinal("numero")),
-                                            Complement = addressReader.IsDBNull(addressReader.GetOrdinal("complemento")) ? null : addressReader.GetString(addressReader.GetOrdinal("complemento")),
-                                            Neighborhood = addressReader.GetString(addressReader.GetOrdinal("bairro")),
-                                            City = addressReader.GetString(addressReader.GetOrdinal("cidade")),
-                                            State = addressReader.GetString(addressReader.GetOrdinal("uf")),
-                                            ClientId = client.Id
-                                        };
-                                    }
-                                }
+                                client.Address = SearchAddressByClientId(client.Id, addressConnection);
                             }
 
-                            return client;
+                            clients.Add(client);  // Adiciona o cliente à lista
                         }
                     }
                 }
             }
-            return null;  // Retorna null se o nome não for encontrado
+
+            return clients.Count > 0 ? clients : null;  // Retorna a lista de clientes encontrados, ou null se não houver
         }
 
-        public Client SearchByIdentifier(string identifier)
+
+        public List<Client> SearchByIdentifier(string identifier)
         {
             // Remover espaços em branco antes e depois da string
             identifier = identifier.Trim();
@@ -358,6 +331,7 @@ WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '/', ''), '-', '') = @Cpf";  // Bus
             {
                 throw new ArgumentException("O identificador não pode ser vazio.");
             }
+
             // Tenta verificar se o identificador é numérico e se pode ser um CPF ou CNPJ
             if (long.TryParse(identifier, out long result))
             {
@@ -365,12 +339,12 @@ WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '/', ''), '-', '') = @Cpf";  // Bus
                 if (identifier.Length == 11)
                 {
                     // Caso tenha 11 dígitos, é CPF
-                    return SearchByCpf(identifier);
+                    return SearchByCpf(identifier);  // Retorna um único cliente
                 }
                 else if (identifier.Length == 14)
                 {
                     // Caso tenha 14 dígitos, é CNPJ
-                    return SearchByCnpj(identifier);
+                    return SearchByCnpj(identifier);  // Retorna um único cliente
                 }
                 else
                 {
@@ -381,8 +355,10 @@ WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '/', ''), '-', '') = @Cpf";  // Bus
             else
             {
                 // Se não for numérico, trata como nome
-                return SearchByName(identifier);
+                return SearchByName(identifier);  // Retorna uma lista de clientes
             }
         }
+
+
     }
 }

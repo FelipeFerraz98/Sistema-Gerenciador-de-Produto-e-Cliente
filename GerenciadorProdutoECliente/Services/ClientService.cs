@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GerenciadorProdutoECliente.Enums;
 using GerenciadorProdutoECliente.Models;
 using GerenciadorProdutoECliente.Repositories;
 
@@ -26,9 +27,6 @@ namespace GerenciadorProdutoECliente.Services
                     return false;
                 }
 
-                // Validação de CPF ou CNPJ de acordo com o tipo de cliente
-                client.ValidateCpfOrCnpj();
-
                 // Chama o repositório para adicionar o cliente
                 return _clientRepository.AddClient(client);
             }
@@ -47,7 +45,7 @@ namespace GerenciadorProdutoECliente.Services
         }
 
         // Método para buscar cliente por identificador (nome, CPF ou CNPJ)
-        public Client GetClientByIdentifier(string identifier)
+        public List<Client> GetClientByIdentifier(string identifier)
         {
             try
             {
@@ -58,6 +56,7 @@ namespace GerenciadorProdutoECliente.Services
                     return null;
                 }
 
+                // Chama o método do repositório para buscar o cliente
                 return _clientRepository.SearchByIdentifier(identifier);
             }
             catch (Exception ex)
@@ -66,6 +65,7 @@ namespace GerenciadorProdutoECliente.Services
                 return null;
             }
         }
+
 
         // Método para atualizar cliente
         public bool UpdateClient(Client client)
@@ -78,9 +78,6 @@ namespace GerenciadorProdutoECliente.Services
                     Console.WriteLine("Dados atualizados são inválidos.");
                     return false;
                 }
-
-                // Validação de CPF ou CNPJ de acordo com o tipo de cliente
-                client.ValidateCpfOrCnpj();
 
                 return _clientRepository.UpdateClient(client);
             }
@@ -117,6 +114,46 @@ namespace GerenciadorProdutoECliente.Services
                 Console.WriteLine($"Erro ao deletar cliente: {ex.Message}");
                 return false;
             }
+        }
+
+        // Método para validar CPF ou CNPJ
+        public bool ValidateCpfOrCnpj(string cpfCnpj, ClientType clientType)
+        {
+            // Validação do CPF ou CNPJ conforme o tipo de cliente
+            if (clientType == ClientType.Individual)
+            {
+                // Valida CPF
+                if (string.IsNullOrEmpty(cpfCnpj) || cpfCnpj.Length != 11 || !IsValidCpf(cpfCnpj))
+                {
+                    return false;
+                }
+            }
+            else if (clientType == ClientType.LegalEntity)
+            {
+                // Valida CNPJ
+                if (string.IsNullOrEmpty(cpfCnpj) || cpfCnpj.Length != 14 || !IsValidCnpj(cpfCnpj))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        // Função de validação de CPF
+        private bool IsValidCpf(string cpf)
+        {
+            return true;
+        }
+
+        // Função de validação de CNPJ
+        private bool IsValidCnpj(string cnpj)
+        {
+            return true; 
         }
     }
 }

@@ -53,34 +53,5 @@ namespace GerenciadorProdutoECliente.Models
             // Inicializa Endereco
             Address = new Address();
         }
-
-        // Método para validar se o CPF ou CNPJ estão corretos, de acordo com o tipo de cliente.
-        // Esse método garante que, para um cliente do tipo "Pessoa Física", o CPF deve ser fornecido e o CNPJ não.
-        // E para um cliente do tipo "Pessoa Jurídica", o CNPJ deve ser fornecido e o CPF não deve ser fornecido.
-        public void ValidateCpfOrCnpj()
-        {
-            // Se o cliente for do tipo "Pessoa Física", o CPF deve ser fornecido
-            if (ClientType == ClientType.Individual)
-            {
-                // Verifica se o CPF é válido (deve ter 11 caracteres)
-                if (string.IsNullOrEmpty(Cpf) || Cpf.Length != 11)
-                {
-                    throw new ArgumentException("O CPF deve ser fornecido para clientes do tipo Pessoa Física e deve ter 11 caracteres.");
-                }
-            }
-            // Se o cliente for do tipo "Pessoa Jurídica", o CNPJ deve ser fornecido
-            else if (ClientType == ClientType.LegalEntity)
-            {
-                // Verifica se o CNPJ é válido (deve ter 14 caracteres)
-                if (string.IsNullOrEmpty(Cnpj) || Cnpj.Length != 14)
-                {
-                    throw new ArgumentException("O CNPJ deve ser fornecido para clientes do tipo Pessoa Jurídica e deve ter 14 caracteres.");
-                }
-            }
-            else
-            {
-                throw new ArgumentException("Tipo de cliente inválido.");
-            }
-        }
     }
 }
