@@ -196,7 +196,7 @@ WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '/', ''), '-', '') = @Cpf";  // Bus
 
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())  // Agora usamos um while para percorrer todos os resultados
+                        while (reader.Read())  // While para percorrer todos os resultados
                         {
                             Client client = new Client
                             {
@@ -246,7 +246,7 @@ WHERE REPLACE(REPLACE(REPLACE(cnpj, '.', ''), '/', ''), '-', '') = @Cnpj";  // B
 
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())  // Agora usamos um while para percorrer todos os resultados
+                        while (reader.Read())  // While para percorrer todos os resultados
                         {
                             Client client = new Client
                             {
@@ -292,7 +292,7 @@ WHERE nome ILIKE @Name";  // ILIKE faz uma busca insensível a maiúsculas/minú
 
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())  // Agora usamos um while para percorrer todos os resultados
+                        while (reader.Read())  //While para percorrer todos os resultados
                         {
                             Client client = new Client
                             {
