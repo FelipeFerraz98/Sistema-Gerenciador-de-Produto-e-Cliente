@@ -58,7 +58,6 @@ namespace GerenciadorProdutoECliente.Repositories
             }
         }
 
-
         // Método para atualizar um cliente existente no banco de dados
         public bool UpdateClient(Client client)
         {
@@ -108,7 +107,6 @@ namespace GerenciadorProdutoECliente.Repositories
             }
         }
 
-
         // Método para deletar um cliente do banco de dados
         public bool DeleteClient(int clientId)
         {
@@ -145,6 +143,7 @@ namespace GerenciadorProdutoECliente.Repositories
             }
         }
 
+        //Método para buscar um endereco de um cliente
         private Address SearchAddressByClientId(int clientId, NpgsqlConnection connection)
         {
             string addressQuery = "SELECT * FROM enderecos WHERE cliente_id = @ClientId LIMIT 1"; // Limitado a um único endereço
@@ -177,6 +176,7 @@ namespace GerenciadorProdutoECliente.Repositories
             return null;  // Retorna null caso o endereço não seja encontrado
         }
 
+        //Método para buscar um cliente por CPF
         private List<Client> SearchByCpf(string cpf)
         {
             // Remove a formatação do CPF para garantir que a busca seja feita apenas com os números
@@ -224,9 +224,7 @@ WHERE REPLACE(REPLACE(REPLACE(cpf, '.', ''), '/', ''), '-', '') = @Cpf";  // Bus
             return clients.Count > 0 ? clients : null;  // Retorna a lista de clientes encontrados, ou null se não houver
         }
 
-
-
-
+        //Método para buscar um cliente por CNPJ
         private List<Client> SearchByCnpj(string cnpj)
         {
             // Remove a formatação do CNPJ para garantir que a busca seja feita apenas com os números
@@ -274,7 +272,7 @@ WHERE REPLACE(REPLACE(REPLACE(cnpj, '.', ''), '/', ''), '-', '') = @Cnpj";  // B
             return clients.Count > 0 ? clients : null;  // Retorna a lista de clientes encontrados, ou null se não houver
         }
 
-
+        //Método para buscar um cliente por Nome
         private List<Client> SearchByName(string name)
         {
             var clients = new List<Client>();  // Lista para armazenar os clientes encontrados
@@ -320,7 +318,7 @@ WHERE nome ILIKE @Name";  // ILIKE faz uma busca insensível a maiúsculas/minú
             return clients.Count > 0 ? clients : null;  // Retorna a lista de clientes encontrados, ou null se não houver
         }
 
-
+        //Método para identificar qual busca o usuário está tentando fazer
         public List<Client> SearchByIdentifier(string identifier)
         {
             // Remover espaços em branco antes e depois da string
@@ -358,7 +356,6 @@ WHERE nome ILIKE @Name";  // ILIKE faz uma busca insensível a maiúsculas/minú
                 return SearchByName(identifier);  // Retorna uma lista de clientes
             }
         }
-
 
     }
 }
