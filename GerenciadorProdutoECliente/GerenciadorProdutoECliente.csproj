@@ -99,6 +99,7 @@
     <Compile Include="Repositories\ClientRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Services\ClientService.cs" />
+    <Compile Include="Services\ProductService.cs" />
     <EmbeddedResource Include="Forms\FormClient.resx">
       <DependentUpon>FormClient.cs</DependentUpon>
     </EmbeddedResource>

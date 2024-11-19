@@ -19,7 +19,7 @@ namespace GerenciadorProdutoECliente
             var testDb = DBConnection.OpenConnection();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormClient());
+            Application.Run(new FormProduct());
         }
     }
 }

@@ -123,6 +123,7 @@
             this.btnSearch.TabIndex = 9;
             this.btnSearch.Text = "Buscar";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // lblSearch
             // 
@@ -141,6 +142,7 @@
             this.btnNew.TabIndex = 11;
             this.btnNew.Text = "Novo";
             this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnUpdate
             // 
@@ -150,6 +152,7 @@
             this.btnUpdate.TabIndex = 12;
             this.btnUpdate.Text = "Atualizar";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
@@ -159,6 +162,7 @@
             this.btnDelete.TabIndex = 13;
             this.btnDelete.Text = "Deletar";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // FormProduct
             // 
