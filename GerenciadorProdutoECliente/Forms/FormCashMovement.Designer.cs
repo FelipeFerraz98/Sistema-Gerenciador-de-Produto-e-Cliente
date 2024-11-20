@@ -41,6 +41,7 @@
             this.btnFinalizePayment = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.lblDataOrder = new System.Windows.Forms.Label();
+            this.lstOrderItems = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -133,7 +134,7 @@
             // 
             // btnFinalizePayment
             // 
-            this.btnFinalizePayment.Location = new System.Drawing.Point(35, 174);
+            this.btnFinalizePayment.Location = new System.Drawing.Point(35, 294);
             this.btnFinalizePayment.Name = "btnFinalizePayment";
             this.btnFinalizePayment.Size = new System.Drawing.Size(139, 23);
             this.btnFinalizePayment.TabIndex = 10;
@@ -159,11 +160,20 @@
             this.lblDataOrder.TabIndex = 12;
             this.lblDataOrder.Text = "0";
             // 
+            // lstOrderItems
+            // 
+            this.lstOrderItems.FormattingEnabled = true;
+            this.lstOrderItems.Location = new System.Drawing.Point(35, 174);
+            this.lstOrderItems.Name = "lstOrderItems";
+            this.lstOrderItems.Size = new System.Drawing.Size(550, 108);
+            this.lstOrderItems.TabIndex = 13;
+            // 
             // FormCashMovement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lstOrderItems);
             this.Controls.Add(this.lblDataOrder);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnFinalizePayment);
@@ -200,5 +210,6 @@
         private System.Windows.Forms.Button btnFinalizePayment;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblDataOrder;
+        private System.Windows.Forms.ListBox lstOrderItems;
     }
 }

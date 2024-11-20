@@ -39,6 +39,27 @@ namespace GerenciadorProdutoECliente.Forms
                 lblDataOrder.Text = order.OrderDate.ToString("dd/MM/yyyy");  // Exibe a data do pedido
                 lblAmountDue.Text = order.TotalAmount.ToString("C2");  // Exibe o valor a pagar
                 _amountDue = order.TotalAmount;
+
+                // Preencher o ListBox com os itens do pedido
+                lstOrderItems.Items.Clear();  // Limpar a lista antes de adicionar os novos itens
+                foreach (var item in order.OrderItems)
+                {
+                    // Busca o produto pelo ID do produto
+                    string idString = item.ProductId.ToString();  // Convertendo o ID do produto para string
+
+                    // Obtém o produto relacionado ao item
+                    item.Product = _orderService.GetProductByIdentifier(idString);
+
+                    // Verifica se o produto foi encontrado e adiciona à lista
+                    if (item.Product != null)
+                    {
+                        lstOrderItems.Items.Add($"{item.Product.Name} - {item.Quantity} x {item.UnitPrice:C} = {item.TotalValue:C}");
+                    }
+                    else
+                    {
+                        lstOrderItems.Items.Add($"Produto não encontrado para o item - {item.Quantity} x {item.UnitPrice:C} = {item.TotalValue:C}");
+                    }
+                }
             }
             else
             {
@@ -49,6 +70,7 @@ namespace GerenciadorProdutoECliente.Forms
             // Preencher comboBox com os métodos de pagamento
             cmbPaymentMethod.Items.AddRange(Enum.GetNames(typeof(PaymentMethod)));
             cmbPaymentMethod.SelectedIndex = 0;  // Seleciona o primeiro item da lista (ex: Dinheiro)
+
         }
 
         private void btnFinalizePayment_Click(object sender, EventArgs e)
