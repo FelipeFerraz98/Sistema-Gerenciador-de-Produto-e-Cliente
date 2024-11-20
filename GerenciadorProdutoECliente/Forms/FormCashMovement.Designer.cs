@@ -39,6 +39,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.lblChange = new System.Windows.Forms.Label();
             this.btnFinalizePayment = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblDataOrder = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -92,6 +94,7 @@
             this.txtPaid.Name = "txtPaid";
             this.txtPaid.Size = new System.Drawing.Size(139, 20);
             this.txtPaid.TabIndex = 5;
+            this.txtPaid.TextChanged += new System.EventHandler(this.txtPaid_TextChanged);
             // 
             // label4
             // 
@@ -124,9 +127,9 @@
             this.lblChange.AutoSize = true;
             this.lblChange.Location = new System.Drawing.Point(83, 138);
             this.lblChange.Name = "lblChange";
-            this.lblChange.Size = new System.Drawing.Size(22, 13);
+            this.lblChange.Size = new System.Drawing.Size(37, 13);
             this.lblChange.TabIndex = 9;
-            this.lblChange.Text = "0.0";
+            this.lblChange.Text = "$ 0.00";
             // 
             // btnFinalizePayment
             // 
@@ -138,11 +141,31 @@
             this.btnFinalizePayment.UseVisualStyleBackColor = true;
             this.btnFinalizePayment.Click += new System.EventHandler(this.btnFinalizePayment_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(249, 36);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(84, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Data do Pedido:";
+            // 
+            // lblDataOrder
+            // 
+            this.lblDataOrder.AutoSize = true;
+            this.lblDataOrder.Location = new System.Drawing.Point(340, 36);
+            this.lblDataOrder.Name = "lblDataOrder";
+            this.lblDataOrder.Size = new System.Drawing.Size(13, 13);
+            this.lblDataOrder.TabIndex = 12;
+            this.lblDataOrder.Text = "0";
+            // 
             // FormCashMovement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblDataOrder);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.btnFinalizePayment);
             this.Controls.Add(this.lblChange);
             this.Controls.Add(this.label5);
@@ -175,5 +198,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblChange;
         private System.Windows.Forms.Button btnFinalizePayment;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblDataOrder;
     }
 }

@@ -12,7 +12,7 @@ namespace GerenciadorProdutoECliente.Forms
         private OrderService orderService;
         private Order currentOrder;
         private OrderItem currentItem;
-
+        private int OrderIdSave { get; set; }
         public FormOrder()
         {
             InitializeComponent();
@@ -274,24 +274,41 @@ namespace GerenciadorProdutoECliente.Forms
             if (currentOrder.OrderItems.Count > 0)
             {
                 // Chama o serviço para salvar o pedido
-                bool isSaved = orderService.SaveOrder(currentOrder);
+                OrderIdSave = orderService.SaveOrder(currentOrder);
 
-                if (isSaved)
+                if (OrderIdSave != 0)
                 {
                     MessageBox.Show("Pedido salvo com sucesso!");
-                    // Após salvar, o pedido pode ser finalizado no caixa
-                    ClearForm();
+                    lblOrderId.Text = OrderIdSave.ToString();
                 }
                 else
                 {
                     MessageBox.Show("Erro ao salvar o pedido.");
+                    DisableAllControls();
                 }
             }
             else
             {
                 MessageBox.Show("Por favor, adicione ao menos um produto ao pedido.");
+            }      
+        }
+
+        private void btnGoToCashier_Click(object sender, EventArgs e)
+        {
+            if (OrderIdSave == 0)
+            {
+                MessageBox.Show("Por favor, finalize o pedido antes de ir para o caixa.");
+                return;
             }
-            DisableAllControls();
+
+            // Criação do formulário de movimentação de caixa, passando o ID do pedido
+            FormCashMovement formCashMovement = new FormCashMovement(OrderIdSave);
+
+            // Exibir o formulário de movimentação de caixa
+            formCashMovement.Show();
+
+            // Ocultar o formulário atual (FormOrder)
+            this.Hide();
         }
     }
 }

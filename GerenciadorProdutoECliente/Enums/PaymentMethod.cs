@@ -2,9 +2,9 @@
 {
     public enum PaymentMethod
     {
-        Cash,              // Pagamento por dinheiro
+        Dinheiro,              // Pagamento por dinheiro
         Pix,               // Pagamento por Pix
-        DebitCard,         // Pagamento por Cartão de Débito
-        CreditCard         // Pagamento por Cartão de Crédito
+        Credito,         // Pagamento por Cartão de Débito
+        Debito         // Pagamento por Cartão de Crédito
     }
 }

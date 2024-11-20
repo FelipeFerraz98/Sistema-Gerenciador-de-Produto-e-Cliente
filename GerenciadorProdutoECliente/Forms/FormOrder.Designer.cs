@@ -53,6 +53,7 @@
             this.lblTotalAmount = new System.Windows.Forms.Label();
             this.lblProductId = new System.Windows.Forms.Label();
             this.lblProductPrice = new System.Windows.Forms.Label();
+            this.lblOrderId = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblClient
@@ -253,6 +254,7 @@
             this.btnGoToCashier.TabIndex = 22;
             this.btnGoToCashier.Text = "Ir para Caixa";
             this.btnGoToCashier.UseVisualStyleBackColor = true;
+            this.btnGoToCashier.Click += new System.EventHandler(this.btnGoToCashier_Click);
             // 
             // lblTotalAmount
             // 
@@ -280,11 +282,21 @@
             this.lblProductPrice.TabIndex = 25;
             this.lblProductPrice.Text = "0.00";
             // 
+            // lblOrderId
+            // 
+            this.lblOrderId.AutoSize = true;
+            this.lblOrderId.Location = new System.Drawing.Point(293, 352);
+            this.lblOrderId.Name = "lblOrderId";
+            this.lblOrderId.Size = new System.Drawing.Size(13, 13);
+            this.lblOrderId.TabIndex = 26;
+            this.lblOrderId.Text = "0";
+            // 
             // FormOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblOrderId);
             this.Controls.Add(this.lblProductPrice);
             this.Controls.Add(this.lblProductId);
             this.Controls.Add(this.lblTotalAmount);
@@ -344,5 +356,6 @@
         private System.Windows.Forms.Label lblTotalAmount;
         private System.Windows.Forms.Label lblProductId;
         private System.Windows.Forms.Label lblProductPrice;
+        private System.Windows.Forms.Label lblOrderId;
     }
 }

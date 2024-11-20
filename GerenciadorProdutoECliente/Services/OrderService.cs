@@ -39,21 +39,21 @@ namespace GerenciadorProdutoECliente.Services
         }
 
         // Método para criar e salvar o pedido
-        public bool CreateOrder(Order order)
+        public int CreateOrder(Order order)
         {
             // Validação do pedido
             if (order == null || order.ClientId == 0 || order.OrderItems.Count == 0)
             {
-                return false; // Não pode criar pedido sem cliente ou itens
+                return 0; // Não pode criar pedido sem cliente ou itens
             }
 
             // Salvar o pedido no banco de dados
-            bool orderSaved = orderRepository.Save(order);
-            if (orderSaved)
+            int orderSaved = orderRepository.Save(order);
+            if (orderSaved != 0)
             {
-                return true;
+                return orderSaved;
             }
-            return false;
+            return 0;
         }
 
         // Método para adicionar um item ao pedido
@@ -91,18 +91,27 @@ namespace GerenciadorProdutoECliente.Services
         }
 
         // Método para salvar o pedido final com seus itens
-        public bool SaveOrder(Order order)
+        public int SaveOrder(Order order)
         {
             // Valida se o pedido tem pelo menos um item
             if (order.OrderItems.Count == 0)
             {
-                return false; // Não pode salvar pedido sem itens
+                return 0; // Não pode salvar pedido sem itens
             }
 
             // Atualiza o total antes de salvar
             UpdateTotalAmount(order);
-
             return CreateOrder(order); // Chama o método para criar e salvar o pedido
+        }
+
+        public bool UpdateOrder(Order order)
+        {
+            if (order != null)
+            {
+                return orderRepository.Update(order);
+            }
+
+            return false;
         }
 
         // Método para remover um item do pedido
@@ -133,6 +142,30 @@ namespace GerenciadorProdutoECliente.Services
                 return orderItemRepository.UpdateItem(itemToEdit);
             }
             return false;
+        }
+
+        // Método para buscar um pedido pelo ID
+        public Order GetOrderById(int orderId)
+        {
+            // Chama o repositório para buscar o pedido no banco de dados
+            return orderRepository.GetOrderById(orderId);
+        }
+
+        // Método para tratar a lógica de negócios ao atualizar o status de finalização do pedido
+        public bool FinalizeOrder(int orderId)
+        {
+            // Lógica de negócio: por exemplo, verifica se o pedido pode ser finalizado
+            if (orderId <= 0)
+            {
+                Console.WriteLine("ID do pedido inválido.");
+                return false;
+            }
+
+            // Se a lógica de negócio passar, chamamos o repositório para atualizar o status
+            bool result = orderRepository.UpdateOrderStatus(orderId, true);
+
+            // Retornamos o resultado da operação
+            return result;
         }
     }
 }

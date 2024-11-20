@@ -79,6 +79,13 @@
   <ItemGroup>
     <Compile Include="Data\DBConnection.cs" />
     <Compile Include="Enums\ClientType.cs" />
+    <Compile Include="Enums\PaymentMethod.cs" />
+    <Compile Include="Forms\FormCashMovement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormCashMovement.Designer.cs">
+      <DependentUpon>FormCashMovement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,19 +105,25 @@
       <DependentUpon>FormProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\CashMovement.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CashMovementRepository.cs" />
     <Compile Include="Repositories\ClientRepository.cs" />
     <Compile Include="Repositories\OrderItemRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Services\CashMovementService.cs" />
     <Compile Include="Services\ClientService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <EmbeddedResource Include="Forms\FormCashMovement.resx">
+      <DependentUpon>FormCashMovement.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormClient.resx">
       <DependentUpon>FormClient.cs</DependentUpon>
     </EmbeddedResource>
