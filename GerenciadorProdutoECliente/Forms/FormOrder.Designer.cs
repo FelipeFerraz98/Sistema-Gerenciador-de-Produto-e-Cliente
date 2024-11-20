@@ -54,6 +54,10 @@
             this.lblProductId = new System.Windows.Forms.Label();
             this.lblProductPrice = new System.Windows.Forms.Label();
             this.lblOrderId = new System.Windows.Forms.Label();
+            this.txtOrderIdSearch = new System.Windows.Forms.TextBox();
+            this.btnSearchOrder = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnUpdateOrder = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblClient
@@ -233,7 +237,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(99, 23);
             this.btnSave.TabIndex = 19;
-            this.btnSave.Text = "Salvar";
+            this.btnSave.Text = "Novo";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -248,7 +252,7 @@
             // 
             // btnGoToCashier
             // 
-            this.btnGoToCashier.Location = new System.Drawing.Point(135, 368);
+            this.btnGoToCashier.Location = new System.Drawing.Point(238, 368);
             this.btnGoToCashier.Name = "btnGoToCashier";
             this.btnGoToCashier.Size = new System.Drawing.Size(99, 23);
             this.btnGoToCashier.TabIndex = 22;
@@ -291,11 +295,51 @@
             this.lblOrderId.TabIndex = 26;
             this.lblOrderId.Text = "0";
             // 
+            // txtOrderIdSearch
+            // 
+            this.txtOrderIdSearch.Location = new System.Drawing.Point(492, 56);
+            this.txtOrderIdSearch.Name = "txtOrderIdSearch";
+            this.txtOrderIdSearch.Size = new System.Drawing.Size(131, 20);
+            this.txtOrderIdSearch.TabIndex = 27;
+            // 
+            // btnSearchOrder
+            // 
+            this.btnSearchOrder.Location = new System.Drawing.Point(649, 56);
+            this.btnSearchOrder.Name = "btnSearchOrder";
+            this.btnSearchOrder.Size = new System.Drawing.Size(102, 23);
+            this.btnSearchOrder.TabIndex = 28;
+            this.btnSearchOrder.Text = "Buscar Pedido";
+            this.btnSearchOrder.UseVisualStyleBackColor = true;
+            this.btnSearchOrder.Click += new System.EventHandler(this.btnSearchOrder_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(492, 37);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(106, 13);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "Insira o ID do Pedido";
+            // 
+            // btnUpdateOrder
+            // 
+            this.btnUpdateOrder.Location = new System.Drawing.Point(136, 368);
+            this.btnUpdateOrder.Name = "btnUpdateOrder";
+            this.btnUpdateOrder.Size = new System.Drawing.Size(96, 23);
+            this.btnUpdateOrder.TabIndex = 30;
+            this.btnUpdateOrder.Text = "Atualizar Pedido";
+            this.btnUpdateOrder.UseVisualStyleBackColor = true;
+            this.btnUpdateOrder.Click += new System.EventHandler(this.btnUpdateOrder_Click);
+            // 
             // FormOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnUpdateOrder);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.btnSearchOrder);
+            this.Controls.Add(this.txtOrderIdSearch);
             this.Controls.Add(this.lblOrderId);
             this.Controls.Add(this.lblProductPrice);
             this.Controls.Add(this.lblProductId);
@@ -357,5 +401,9 @@
         private System.Windows.Forms.Label lblProductId;
         private System.Windows.Forms.Label lblProductPrice;
         private System.Windows.Forms.Label lblOrderId;
+        private System.Windows.Forms.TextBox txtOrderIdSearch;
+        private System.Windows.Forms.Button btnSearchOrder;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnUpdateOrder;
     }
 }

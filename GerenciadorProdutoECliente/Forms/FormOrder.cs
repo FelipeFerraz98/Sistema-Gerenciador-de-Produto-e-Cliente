@@ -310,5 +310,78 @@ namespace GerenciadorProdutoECliente.Forms
             // Ocultar o formulário atual (FormOrder)
             this.Hide();
         }
+
+        private void btnSearchOrder_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtOrderIdSearch.Text, out int orderId) && orderId > 0)
+            {
+                // Busca o pedido pelo ID
+                currentOrder = orderService.GetOrderById(orderId);
+
+                if (currentOrder != null)
+                {
+                    // Preenche os campos do formulário com as informações do pedido
+                    lblClientName.Text = $"Pedido de: {currentOrder.Client?.Name ?? "Desconhecido"}";
+                    lblTotalAmount.Text = currentOrder.TotalAmount.ToString("C");
+
+                    // Preenche a lista de itens do pedido
+                    lstOrderItems.Items.Clear();
+                    foreach (var item in currentOrder.OrderItems)
+                    {
+                        // Busca o produto usando o ID do produto
+                        string idString = item.ProductId.ToString();
+                        item.Product = orderService.GetProductByIdentifier(idString);
+
+                        // Verifica se o produto foi encontrado e adiciona à lista
+                        if (item.Product != null)
+                        {
+                            lstOrderItems.Items.Add($"{item.Product.Name} - {item.Quantity} x {item.UnitPrice:C} = {item.TotalValue:C}");
+                        }
+                        else
+                        {
+                            lstOrderItems.Items.Add($"Produto não encontrado para o item - {item.Quantity} x {item.UnitPrice:C} = {item.TotalValue:C}");
+                        }
+                    }
+                    OrderIdSave = currentOrder.Id;
+
+                    // Habilita os controles para edição
+                    EnableControls();
+                    btnSave.Enabled = false;  // Desabilita o botão "Salvar" quando estamos editando um pedido existente
+                    btnUpdateOrder.Enabled = true; // Habilita o botão "Atualizar" para pedidos existentes
+                    btnNewOrder.Enabled = false; // Desabilita o botão "Novo Pedido" enquanto estamos editando
+                }
+                else
+                {
+                    MessageBox.Show("Pedido não encontrado.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, insira um ID de pedido válido.");
+            }
+        }
+
+        private void btnUpdateOrder_Click(object sender, EventArgs e)
+        {
+            if (currentOrder != null && currentOrder.OrderItems.Count > 0)
+            {
+                // Atualiza o pedido no banco de dados com os dados editados
+                bool isUpdated = orderService.UpdateOrder(currentOrder);
+
+                if (isUpdated)
+                {
+                    MessageBox.Show("Pedido atualizado com sucesso!");
+                    lblOrderId.Text = currentOrder.Id.ToString(); // Exibe o ID do pedido atualizado
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao atualizar o pedido.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, adicione ao menos um produto ao pedido.");
+            }
+        }
     }
 }
