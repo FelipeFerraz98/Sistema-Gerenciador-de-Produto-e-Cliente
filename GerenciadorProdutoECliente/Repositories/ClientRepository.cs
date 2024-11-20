@@ -176,6 +176,51 @@ namespace GerenciadorProdutoECliente.Repositories
             return null;  // Retorna null caso o endereço não seja encontrado
         }
 
+        // Método para buscar um cliente por ID
+        public Client SearchById(int id)
+        {
+            Client client = null;  // Inicializa o cliente como nulo, caso não seja encontrado
+
+            using (NpgsqlConnection connection = DBConnection.OpenConnection())
+            {
+                // Query para buscar o cliente pelo ID
+                string query = @"
+        SELECT id, nome, cpf, cnpj, telefone, email, tipo_cliente
+        FROM clientes
+        WHERE id = @Id";  // Busca pelo ID do cliente
+
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())  // Se um cliente for encontrado
+                        {
+                            client = new Client
+                            {
+                                Id = reader.GetInt32(0),
+                                Name = reader.GetString(1),
+                                Cpf = reader.IsDBNull(2) ? null : reader.GetString(2),
+                                Cnpj = reader.IsDBNull(3) ? null : reader.GetString(3),
+                                Phone = reader.IsDBNull(4) ? null : reader.GetString(4),
+                                Email = reader.IsDBNull(5) ? null : reader.GetString(5),
+                                ClientType = (ClientType)reader.GetChar(6)  // Convertendo tipo_cliente de char para enum
+                            };
+
+                            // Busca o endereço associado ao cliente em uma nova conexão
+                            using (NpgsqlConnection addressConnection = DBConnection.OpenConnection())
+                            {
+                                client.Address = SearchAddressByClientId(client.Id, addressConnection);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return client;  // Retorna o cliente encontrado ou nulo se não encontrado
+        }
+
         //Método para buscar um cliente por CPF
         private List<Client> SearchByCpf(string cpf)
         {
