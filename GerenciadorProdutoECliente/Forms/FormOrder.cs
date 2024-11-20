@@ -383,5 +383,100 @@ namespace GerenciadorProdutoECliente.Forms
                 MessageBox.Show("Por favor, adicione ao menos um produto ao pedido.");
             }
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtOrderIdSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblOrderId_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblProductPrice_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblProductId_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTotalAmount_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblProductTotalPrice_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblProduct_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtProductSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblClientName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstOrderItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtClientIdentifier_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblClient_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

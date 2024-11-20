@@ -42,12 +42,15 @@
             this.btnNew = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.btnOrder = new System.Windows.Forms.Button();
+            this.btnProduct = new System.Windows.Forms.Button();
+            this.btnClient = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblProduct
             // 
             this.lblProduct.AutoSize = true;
-            this.lblProduct.Location = new System.Drawing.Point(35, 106);
+            this.lblProduct.Location = new System.Drawing.Point(37, 170);
             this.lblProduct.Name = "lblProduct";
             this.lblProduct.Size = new System.Drawing.Size(90, 13);
             this.lblProduct.TabIndex = 0;
@@ -56,7 +59,7 @@
             // lblStock
             // 
             this.lblStock.AutoSize = true;
-            this.lblStock.Location = new System.Drawing.Point(35, 133);
+            this.lblStock.Location = new System.Drawing.Point(37, 197);
             this.lblStock.Name = "lblStock";
             this.lblStock.Size = new System.Drawing.Size(121, 13);
             this.lblStock.TabIndex = 1;
@@ -65,7 +68,7 @@
             // lblPrice
             // 
             this.lblPrice.AutoSize = true;
-            this.lblPrice.Location = new System.Drawing.Point(35, 163);
+            this.lblPrice.Location = new System.Drawing.Point(37, 227);
             this.lblPrice.Name = "lblPrice";
             this.lblPrice.Size = new System.Drawing.Size(74, 13);
             this.lblPrice.TabIndex = 2;
@@ -74,7 +77,7 @@
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(35, 191);
+            this.lblDescription.Location = new System.Drawing.Point(37, 255);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(110, 13);
             this.lblDescription.TabIndex = 3;
@@ -82,42 +85,42 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(179, 103);
+            this.txtName.Location = new System.Drawing.Point(181, 167);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(203, 20);
             this.txtName.TabIndex = 4;
             // 
             // txtStock
             // 
-            this.txtStock.Location = new System.Drawing.Point(179, 133);
+            this.txtStock.Location = new System.Drawing.Point(181, 197);
             this.txtStock.Name = "txtStock";
             this.txtStock.Size = new System.Drawing.Size(84, 20);
             this.txtStock.TabIndex = 5;
             // 
             // txtPrice
             // 
-            this.txtPrice.Location = new System.Drawing.Point(179, 160);
+            this.txtPrice.Location = new System.Drawing.Point(181, 224);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(84, 20);
             this.txtPrice.TabIndex = 6;
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(179, 191);
+            this.txtDescription.Location = new System.Drawing.Point(181, 255);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(203, 20);
             this.txtDescription.TabIndex = 7;
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(210, 35);
+            this.txtSearch.Location = new System.Drawing.Point(212, 99);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(264, 20);
             this.txtSearch.TabIndex = 8;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(497, 31);
+            this.btnSearch.Location = new System.Drawing.Point(499, 95);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 9;
@@ -128,7 +131,7 @@
             // lblSearch
             // 
             this.lblSearch.AutoSize = true;
-            this.lblSearch.Location = new System.Drawing.Point(207, 19);
+            this.lblSearch.Location = new System.Drawing.Point(209, 83);
             this.lblSearch.Name = "lblSearch";
             this.lblSearch.Size = new System.Drawing.Size(183, 13);
             this.lblSearch.TabIndex = 10;
@@ -136,7 +139,7 @@
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(38, 246);
+            this.btnNew.Location = new System.Drawing.Point(40, 310);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 11;
@@ -146,7 +149,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(133, 246);
+            this.btnUpdate.Location = new System.Drawing.Point(135, 310);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 12;
@@ -156,7 +159,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(227, 246);
+            this.btnDelete.Location = new System.Drawing.Point(229, 310);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 13;
@@ -164,11 +167,41 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // btnOrder
+            // 
+            this.btnOrder.Location = new System.Drawing.Point(233, 29);
+            this.btnOrder.Name = "btnOrder";
+            this.btnOrder.Size = new System.Drawing.Size(75, 23);
+            this.btnOrder.TabIndex = 35;
+            this.btnOrder.Text = "Pedido";
+            this.btnOrder.UseVisualStyleBackColor = true;
+            // 
+            // btnProduct
+            // 
+            this.btnProduct.Location = new System.Drawing.Point(135, 29);
+            this.btnProduct.Name = "btnProduct";
+            this.btnProduct.Size = new System.Drawing.Size(75, 23);
+            this.btnProduct.TabIndex = 34;
+            this.btnProduct.Text = "Produto";
+            this.btnProduct.UseVisualStyleBackColor = true;
+            // 
+            // btnClient
+            // 
+            this.btnClient.Location = new System.Drawing.Point(47, 29);
+            this.btnClient.Name = "btnClient";
+            this.btnClient.Size = new System.Drawing.Size(75, 23);
+            this.btnClient.TabIndex = 33;
+            this.btnClient.Text = "Cliente";
+            this.btnClient.UseVisualStyleBackColor = true;
+            // 
             // FormProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnOrder);
+            this.Controls.Add(this.btnProduct);
+            this.Controls.Add(this.btnClient);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnNew);
@@ -206,5 +239,8 @@
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnOrder;
+        private System.Windows.Forms.Button btnProduct;
+        private System.Windows.Forms.Button btnClient;
     }
 }
