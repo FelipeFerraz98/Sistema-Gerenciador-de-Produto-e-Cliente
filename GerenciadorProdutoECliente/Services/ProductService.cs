@@ -60,6 +60,20 @@ namespace GerenciadorProdutoECliente.Services
             return GetProductByIdentifier(stringId);
         }
 
+        public bool DecreaseProductStock(int productId, int quantity)
+        {
+            // Verifica se a quantidade é válida
+            if (quantity <= 0)
+            {
+                Console.WriteLine("A quantidade deve ser maior que zero.", nameof(quantity));
+            }
+
+            // Chama o repositório para diminuir o estoque
+            bool success = _productRepository.DecreaseProductStock(productId, quantity);
+
+            return success;
+        }
+
         // Método para buscar produto por identificador (ID ou nome)
         public Product GetProductByIdentifier(string identifier)
         {
