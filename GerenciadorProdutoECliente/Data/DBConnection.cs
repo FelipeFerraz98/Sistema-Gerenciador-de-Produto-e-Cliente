@@ -23,7 +23,6 @@ namespace GerenciadorProdutoECliente.Data
                 // Criar e retornar a instância da conexão com o banco de dados
                 NpgsqlConnection conn = new NpgsqlConnection(connString);
                 conn.Open();
-                Console.WriteLine("Conexão com o banco de dados foi aberta.");
                 return conn;
             }
             catch (Exception ex)
@@ -40,7 +39,6 @@ namespace GerenciadorProdutoECliente.Data
             if (conn != null)
             {
                 conn.Close();
-                Console.WriteLine("Conexão com o banco de dados foi fechada.");
             }
         }
     }

@@ -218,9 +218,9 @@ namespace GerenciadorProdutoECliente.Forms
                     // Adiciona o novo item
                     currentOrder.OrderItems.Add(currentItem);
 
-                    string unitPrice = ConvertCurrency.ConvertToReal(existingItem.UnitPrice); // Formata o valor unitário
+                    string unitPrice = ConvertCurrency.ConvertToReal(currentItem.Product.UnitPrice); // Formata o valor unitário
 
-                    string totalValue = ConvertCurrency.ConvertToReal(existingItem.TotalValue); // Formata o valor total
+                    string totalValue = ConvertCurrency.ConvertToReal(currentItem.TotalValue); // Formata o valor total
 
                     // Atualiza a lista visual de itens do pedido
                     lstOrderItems.Items.Add($"{currentItem.Product.Name} - " +

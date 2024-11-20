@@ -66,8 +66,17 @@ namespace GerenciadorProdutoECliente.Utils
             BaseFont baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, false); // Define a fonte base
             Font textFont = new Font(baseFont, 12, Font.NORMAL, BaseColor.Black); // Define a fonte para o texto
 
-            // Usa o operador null-coalescing (??) para verificar se o CPF ou CNPJ do cliente existe
-            string cpfCnpj = (Formatter.FormatCpf(client.Cpf)) ?? (Formatter.FormatCnpj(client.Cnpj)); // Formata o CPF ou CNPJ
+            // Verifica se o CPF não é nulo antes de tentar formatar
+            string cpfCnpj = null;
+
+            if (!string.IsNullOrEmpty(client.Cpf)) // Verifica se o CPF existe
+            {
+                cpfCnpj = Formatter.FormatCpf(client.Cpf);
+            }
+            else if (!string.IsNullOrEmpty(client.Cnpj)) // Caso CPF seja nulo, verifica se o CNPJ existe
+            {
+                cpfCnpj = Formatter.FormatCnpj(client.Cnpj);
+            }
 
             string phone = Formatter.FormatPhone(client.Phone); // Formata o telefone do cliente
 
@@ -75,9 +84,9 @@ namespace GerenciadorProdutoECliente.Utils
 
             // Cria um parágrafo com as informações do cliente e adiciona ao PDF
             Paragraph clientInfo = new Paragraph($"Cliente: {client.Name} Portador do CPF/CNPJ: {cpfCnpj}\n" +
-                                           $"Endereço: {client.Address.Street}, {client.Address.Number}" +
-                                           $" {client.Address.Neighborhood}, {client.Address.City}" +
-                                           $" - {client.Address.State} - CEP {zipCode}\n" +
+                                           $"Endereço: {client.Address.Street}, {client.Address.Number} -" +
+                                           $" {client.Address.Neighborhood}\n {client.Address.City}" +
+                                           $" - {client.Address.State} CEP {zipCode}\n" +
                                            $"Telefone: {phone}\n\n", textFont)
             {
                 Alignment = Element.ALIGN_LEFT // Alinha o texto à esquerda

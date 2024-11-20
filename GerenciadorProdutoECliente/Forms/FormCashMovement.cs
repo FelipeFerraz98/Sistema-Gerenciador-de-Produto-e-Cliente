@@ -43,7 +43,7 @@ namespace GerenciadorProdutoECliente.Forms
 
                 // Preencher o ListBox com os itens do pedido
                 lstOrderItems.Items.Clear();  // Limpar a lista antes de adicionar os novos itens
-                foreach (var item in order.OrderItems)
+                foreach (OrderItem item in order.OrderItems)
                 {
                     // Busca o produto pelo ID do produto
                     string idString = item.ProductId.ToString();  // Convertendo o ID do produto para string
@@ -80,7 +80,7 @@ namespace GerenciadorProdutoECliente.Forms
         private void OnOrderCompleted(decimal paidAmount)
         {
             // Obter o pedido do OrderService usando o ID do pedido
-            var order = _orderService.GetOrderById(_orderId);
+            Order order = _orderService.GetOrderById(_orderId);
 
             if (order != null)
             {

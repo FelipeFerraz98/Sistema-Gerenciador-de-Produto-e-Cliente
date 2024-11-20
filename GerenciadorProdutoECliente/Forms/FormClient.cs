@@ -2,17 +2,18 @@
 using GerenciadorProdutoECliente.Models;
 using GerenciadorProdutoECliente.Repositories;
 using GerenciadorProdutoECliente.Services;
-using Org.BouncyCastle.Utilities;
+using MaterialSkin;
+using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Windows.Forms;
-using System.Xml.Linq;
+using GerenciadorProdutoECliente.Utils;
+
 
 namespace GerenciadorProdutoECliente.Forms
 {
-    public partial class FormClient : Form
+    public partial class FormClient : MaterialForm
     {
         private readonly ClientService _clientService;
         private readonly CepService _cepService;
@@ -21,10 +22,22 @@ namespace GerenciadorProdutoECliente.Forms
         public FormClient()
         {
             InitializeComponent();
+            InitializeMaterialSkin();
             _clientService = new ClientService(new ClientRepository());
             ClientIdSave = 0;
             btnClient.Enabled = false;
             _cepService = new CepService(); // Inicializa o Service
+
+            // Remove o título da janela
+            this.Text = ""; // Deixa o título vazio
+
+        }
+        private void InitializeMaterialSkin()
+        {
+            // Cria o materialSkinManager e define o tema
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT; // Ou LIGHT
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue600, Primary.Blue700, Primary.Blue500, Accent.Blue400, TextShade.WHITE);
         }
 
         private void ClearFields()
@@ -47,25 +60,37 @@ namespace GerenciadorProdutoECliente.Forms
             // Determina o tipo de cliente baseado no radio button
             ClientType clientType = rbtnIndividual.Checked ? ClientType.Individual : ClientType.LegalEntity;
 
-           // Chama o método de validação de CPF/CNPJ do ClientService
-            bool isValid =  _clientService.ValidateCpfOrCnpj(txtCpfCnpj.Text, clientType);
+            //Remove espaço no começo e no final
+            string cpfCnpj = txtCpfCnpj.Text.Trim();
+
+            // Remove qualquer caractere que não seja número
+            cpfCnpj = new string(cpfCnpj.Where(char.IsDigit).ToArray());
+
+            // Chama o método de validação de CPF/CNPJ do ClientService
+            bool isValid =  _clientService.ValidateCpfOrCnpj(cpfCnpj, clientType);
             if (!isValid)
             {
                 MessageBox.Show("CPF/CNPJ INVÁLIDO");
             }
 
+            //Remove espaço no começo e no final
+            string zipCode = txtZipCode.Text.Trim();
+
+            // Remove qualquer caractere que não seja número (incluindo o '-')
+            zipCode = new string(zipCode.Where(char.IsDigit).ToArray());
+
             // Cria um novo cliente
             Client newClient = new Client
             {
                 Name = txtName.Text,
-                Cpf = clientType == ClientType.Individual && txtCpfCnpj.Text.Length == 11 ? txtCpfCnpj.Text : null,
-                Cnpj = clientType == ClientType.LegalEntity && txtCpfCnpj.Text.Length == 14 ? txtCpfCnpj.Text : null,
+                Cpf = clientType == ClientType.Individual && cpfCnpj.Length == 11 ? cpfCnpj : null,
+                Cnpj = clientType == ClientType.LegalEntity && cpfCnpj.Length == 14 ? cpfCnpj : null,
                 Email = txtEmail.Text,
                 ClientType = clientType,
                 Phone = txtPhone.Text,
                 Address = new Address
                 {
-                    ZipCode = txtZipCode.Text,
+                    ZipCode = zipCode,
                     Street = txtStreet.Text,
                     Number = txtNumber.Text,
                     Complement = txtComplement.Text,
@@ -104,12 +129,28 @@ namespace GerenciadorProdutoECliente.Forms
             // Limpa a lista de resultados antes de mostrar
             lstClients.Items.Clear();
 
+
             if (clients != null)
             {
                 foreach (var client in clients)
                 {
-                    string displayText = $"{client.Name} - {client.Cpf ?? client.Cnpj} - {client.Phone}";
-                    lstClients.Items.Add(displayText);
+                    // Verifica se o CPF não é nulo antes de tentar formatar
+                    string cpfCnpj = null;
+
+                    if (!string.IsNullOrEmpty(client.Cpf)) // Verifica se o CPF existe
+                    {
+                        cpfCnpj = Formatter.FormatCpf(client.Cpf);
+                    }
+                    else if (!string.IsNullOrEmpty(client.Cnpj)) // Caso CPF seja nulo, verifica se o CNPJ existe
+                    {
+                        cpfCnpj = Formatter.FormatCnpj(client.Cnpj);
+                    }
+
+                    if (cpfCnpj != null) // Caso não tenha nem CPF nem CNPJ, mostra uma mensagem
+                    {
+                        string displayText = $"{client.Name} | {cpfCnpj} | {client.Phone}";
+                        lstClients.Items.Add(displayText);
+                    }
                 }
             }
             else
@@ -125,18 +166,33 @@ namespace GerenciadorProdutoECliente.Forms
                 string selectedClientInfo = lstClients.SelectedItem.ToString();
 
                 // Extrair o nome, CPF/CNPJ e telefone da string exibida
-                string[] clientDetails = selectedClientInfo.Split('-');
+                string[] clientDetails = selectedClientInfo.Split('|');
                 string clientIdentifier = clientDetails[1].Trim();  // CPF ou CNPJ
+
+                // Remove qualquer caractere que não seja número (incluindo o '-')
+                clientIdentifier = new string(clientIdentifier.Where(char.IsDigit).ToArray());
 
                 // Buscar o cliente pelo CPF ou CNPJ (verifica qual está disponível)
                 List<Client> selectedClient = _clientService.GetClientByIdentifier(clientIdentifier);
                 Client client = selectedClient[0];
 
+                // Verifica se o CPF não é nulo antes de tentar formatar
+                string cpfCnpj = null;
+
+                if (!string.IsNullOrEmpty(client.Cpf)) // Verifica se o CPF existe
+                {
+                    cpfCnpj = Formatter.FormatCpf(client.Cpf);
+                }
+                else if (!string.IsNullOrEmpty(client.Cnpj)) // Caso CPF seja nulo, verifica se o CNPJ existe
+                {
+                    cpfCnpj = Formatter.FormatCnpj(client.Cnpj);
+                }
+
                 if (client != null)
                 {
                     // Carrega os dados do cliente selecionado nos campos de entrada
                     txtName.Text = client.Name;
-                    txtCpfCnpj.Text = client.Cpf ?? client.Cnpj;
+                    txtCpfCnpj.Text = cpfCnpj;
                     txtEmail.Text = client.Email;
                     txtPhone.Text = client.Phone;
                     txtZipCode.Text = client.Address?.ZipCode;
@@ -176,7 +232,13 @@ namespace GerenciadorProdutoECliente.Forms
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if(ClientIdSave == 0)
+            //Remove espaço no começo e no final
+            string cpfCnpj = txtCpfCnpj.Text.Trim();
+
+            // Remove qualquer caractere que não seja número
+            cpfCnpj = new string(cpfCnpj.Where(char.IsDigit).ToArray());
+
+            if (ClientIdSave == 0)
             {
                 MessageBox.Show("Faça uma busca antes de atualizar o cliente!");
             }
@@ -185,8 +247,8 @@ namespace GerenciadorProdutoECliente.Forms
             {
                 Id = ClientIdSave,
                 Name = txtName.Text,
-                Cpf = txtCpfCnpj.Text.Length == 11 ? txtCpfCnpj.Text : null,
-                Cnpj = txtCpfCnpj.Text.Length == 14 ? txtCpfCnpj.Text : null,
+                Cpf = cpfCnpj.Length == 11 ? cpfCnpj : null,
+                Cnpj = cpfCnpj.Length == 14 ? cpfCnpj : null,
                 Email = txtEmail.Text,
                 Phone = txtPhone.Text,
                 Address = new Address
