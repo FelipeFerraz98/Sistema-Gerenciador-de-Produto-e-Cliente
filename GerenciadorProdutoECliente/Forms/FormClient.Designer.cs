@@ -105,24 +105,25 @@
             this.txtZipCode.Name = "txtZipCode";
             this.txtZipCode.Size = new System.Drawing.Size(100, 20);
             this.txtZipCode.TabIndex = 5;
+            this.txtZipCode.TextChanged += new System.EventHandler(this.txtZipCode_TextChanged);
             // 
             // txtStreet
             // 
-            this.txtStreet.Location = new System.Drawing.Point(154, 253);
+            this.txtStreet.Location = new System.Drawing.Point(171, 254);
             this.txtStreet.Name = "txtStreet";
             this.txtStreet.Size = new System.Drawing.Size(100, 20);
             this.txtStreet.TabIndex = 6;
             // 
             // txtNumber
             // 
-            this.txtNumber.Location = new System.Drawing.Point(270, 253);
+            this.txtNumber.Location = new System.Drawing.Point(287, 254);
             this.txtNumber.Name = "txtNumber";
             this.txtNumber.Size = new System.Drawing.Size(39, 20);
             this.txtNumber.TabIndex = 7;
             // 
             // txtComplement
             // 
-            this.txtComplement.Location = new System.Drawing.Point(324, 253);
+            this.txtComplement.Location = new System.Drawing.Point(341, 254);
             this.txtComplement.Name = "txtComplement";
             this.txtComplement.Size = new System.Drawing.Size(100, 20);
             this.txtComplement.TabIndex = 8;
@@ -178,7 +179,7 @@
             // lblComplement
             // 
             this.lblComplement.AutoSize = true;
-            this.lblComplement.Location = new System.Drawing.Point(324, 234);
+            this.lblComplement.Location = new System.Drawing.Point(341, 235);
             this.lblComplement.Name = "lblComplement";
             this.lblComplement.Size = new System.Drawing.Size(71, 13);
             this.lblComplement.TabIndex = 14;
@@ -187,7 +188,7 @@
             // lblNumber
             // 
             this.lblNumber.AutoSize = true;
-            this.lblNumber.Location = new System.Drawing.Point(270, 235);
+            this.lblNumber.Location = new System.Drawing.Point(287, 236);
             this.lblNumber.Name = "lblNumber";
             this.lblNumber.Size = new System.Drawing.Size(44, 13);
             this.lblNumber.TabIndex = 15;
@@ -196,7 +197,7 @@
             // lblStreet
             // 
             this.lblStreet.AutoSize = true;
-            this.lblStreet.Location = new System.Drawing.Point(154, 232);
+            this.lblStreet.Location = new System.Drawing.Point(171, 233);
             this.lblStreet.Name = "lblStreet";
             this.lblStreet.Size = new System.Drawing.Size(27, 13);
             this.lblStreet.TabIndex = 16;

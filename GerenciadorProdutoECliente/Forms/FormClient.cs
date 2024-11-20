@@ -226,5 +226,10 @@ namespace GerenciadorProdutoECliente.Forms
 
             FormManager.SwitchForm(currentForm, newForm);
         }
+
+        private void txtZipCode_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
