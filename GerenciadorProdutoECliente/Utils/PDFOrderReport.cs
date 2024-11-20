@@ -1,9 +1,9 @@
-﻿using GerenciadorProdutoECliente.Models; // Importa os modelos de dados, como Pedido e Cliente.
-using GerenciadorProdutoECliente.Services; // Importa os serviços, como ProductService e ClientService.
-using GerenciadorProdutoECliente.Repositories; // Importa os repositórios, como ProductRepository e ClientRepository.
+﻿using GerenciadorProdutoECliente.Models;
+using GerenciadorProdutoECliente.Services;
+using GerenciadorProdutoECliente.Repositories;
 using iTextSharp.text; // Importa classes para a criação de documentos PDF.
 using iTextSharp.text.pdf; // Importa classes para escrever no PDF.
-using System.IO; // Importa classes para manipulação de arquivos.
+using System.IO;
 
 namespace GerenciadorProdutoECliente.Utils
 {
@@ -67,13 +67,18 @@ namespace GerenciadorProdutoECliente.Utils
             Font textFont = new Font(baseFont, 12, Font.NORMAL, BaseColor.Black); // Define a fonte para o texto
 
             // Usa o operador null-coalescing (??) para verificar se o CPF ou CNPJ do cliente existe
-            string cpfCnpj = client.Cpf ?? client.Cnpj; // Se CPF for null, usa o CNPJ
+            string cpfCnpj = (Formatter.FormatCpf(client.Cpf)) ?? (Formatter.FormatCnpj(client.Cnpj)); // Formata o CPF ou CNPJ
+
+            string phone = Formatter.FormatPhone(client.Phone); // Formata o telefone do cliente
+
+            string zipCode = Formatter.FormatZipCode(client.Address.ZipCode);
 
             // Cria um parágrafo com as informações do cliente e adiciona ao PDF
             Paragraph clientInfo = new Paragraph($"Cliente: {client.Name} Portador do CPF/CNPJ: {cpfCnpj}\n" +
                                            $"Endereço: {client.Address.Street}, {client.Address.Number}" +
-                                           $" {client.Address.Neighborhood}, {client.Address.City} - {client.Address.State} - CEP {client.Address.ZipCode}\n" +
-                                           $"Telefone: {client.Phone}\n\n", textFont)
+                                           $" {client.Address.Neighborhood}, {client.Address.City}" +
+                                           $" - {client.Address.State} - CEP {zipCode}\n" +
+                                           $"Telefone: {phone}\n\n", textFont)
             {
                 Alignment = Element.ALIGN_LEFT // Alinha o texto à esquerda
             };
@@ -106,7 +111,7 @@ namespace GerenciadorProdutoECliente.Utils
                 {
                     // Adiciona as células com os dados do produto
                     CreateTextCell(table, product.Name); // Nome do produto
-                    CreateTextCell(table, ConvertCurrency.ConvertToReal(item.Quantity), PdfPCell.ALIGN_CENTER); // Quantidade formatada
+                    CreateTextCell(table, item.Quantity.ToString(), PdfPCell.ALIGN_CENTER); // Quantidade 
                     CreateTextCell(table, ConvertCurrency.ConvertToReal(item.UnitPrice), PdfPCell.ALIGN_RIGHT); // Preço unitário formatado
                     CreateTextCell(table, (ConvertCurrency.ConvertToReal(item.Quantity * item.UnitPrice)), PdfPCell.ALIGN_RIGHT); // Total formatado
                 }
@@ -114,7 +119,7 @@ namespace GerenciadorProdutoECliente.Utils
                 {
                     // Caso o produto não seja encontrado, exibe uma mensagem
                     CreateTextCell(table, "Produto não encontrado", PdfPCell.ALIGN_LEFT);
-                    CreateTextCell(table, ConvertCurrency.ConvertToReal(item.Quantity), PdfPCell.ALIGN_CENTER);
+                    CreateTextCell(table, item.Quantity.ToString(), PdfPCell.ALIGN_CENTER);
                     CreateTextCell(table, ConvertCurrency.ConvertToReal(item.UnitPrice), PdfPCell.ALIGN_RIGHT);
                     CreateTextCell(table, (ConvertCurrency.ConvertToReal(item.Quantity * item.UnitPrice)), PdfPCell.ALIGN_RIGHT);
                 }
@@ -132,7 +137,12 @@ namespace GerenciadorProdutoECliente.Utils
             // Converte os valores para o formato de Real (R$)
             string totalAmount = ConvertCurrency.ConvertToReal(Order.TotalAmount);
             string amountPaid = ConvertCurrency.ConvertToReal(PaidAmount);
-            string change = ConvertCurrency.ConvertToReal(PaidAmount - Order.TotalAmount);
+            string change = "0"; // Para todo caso do valor pago ser igual ou menor
+
+            if (PaidAmount >= Order.TotalAmount) // Se o valor pago for maior que o a pagar
+            {
+                change = ConvertCurrency.ConvertToReal(PaidAmount - Order.TotalAmount); // Calcula o troco e converte para Real
+            }
 
             // Cria o parágrafo com o resumo do pedido (total, valor pago e troco)
             Paragraph summary = new Paragraph($"\nTotal do Pedido: {totalAmount:C2}\n" +

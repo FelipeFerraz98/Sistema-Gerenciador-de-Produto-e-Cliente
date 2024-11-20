@@ -17,18 +17,25 @@ namespace GerenciadorProdutoECliente.Utils
         }
 
         // Método para formatar Telefone (fixo ou móvel)
-        public static string FormatPhone(string telefone)
+        public static string FormatPhone(string phone)
         {
-            if (telefone.Length == 11)
+            if (phone.Length == 11)
             {
                 // Formato para celular (11 dígitos): (11) 97552-2976
-                return $"({telefone.Substring(0, 2)}) {telefone.Substring(2, 5)}-{telefone.Substring(7, 4)}";
+                return $"({phone.Substring(0, 2)}) {phone.Substring(2, 5)}-{phone.Substring(7, 4)}";
             }
             else
             {
                 // Formato para fixo (10 dígitos): (11) 4552-2976
-                return $"({telefone.Substring(0, 2)}) {telefone.Substring(2, 4)}-{telefone.Substring(6, 4)}";
+                return $"({phone.Substring(0, 2)}) {phone.Substring(2, 4)}-{phone.Substring(6, 4)}";
             }
+        }
+
+        // Método para formatar CEP
+        public static string FormatZipCode(string zipCode)
+        {
+            // Formata o CEP para o padrão XXXXX-XXX
+            return $"{zipCode.Substring(0, 5)}-{zipCode.Substring(5, 3)}";
         }
     }
 }

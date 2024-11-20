@@ -1,6 +1,7 @@
 ﻿using GerenciadorProdutoECliente.Models;
 using GerenciadorProdutoECliente.Repositories;
 using GerenciadorProdutoECliente.Services;
+using GerenciadorProdutoECliente.Utils;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -68,8 +69,8 @@ namespace GerenciadorProdutoECliente.Forms
         {
             lblProduct.Text = "Nome do Produto";
             lblProductId.Text = string.Empty;
-            lblProductPrice.Text = "0.00";
-            lblProductTotalPrice.Text = "Preço total do produto: 0.00";
+            lblProductPrice.Text = "R$ 0,00";
+            lblProductTotalPrice.Text = "Preço total do produto: R$ 0,00";
             txtProductSearch.Text = string.Empty;
             txtQuantity.Text = string.Empty;
             currentItem = new OrderItem(); // Limpa o item atual após a adição
@@ -80,7 +81,7 @@ namespace GerenciadorProdutoECliente.Forms
         {
             txtClientIdentifier.Clear();
             lblClientName.Text = "Pedido de:";
-            lblTotalAmount.Text = "0.00";
+            lblTotalAmount.Text = "R$ 0,00";
             lstOrderItems.Items.Clear();
         }
 
@@ -127,7 +128,7 @@ namespace GerenciadorProdutoECliente.Forms
                 OrderDate = DateTime.Now
             };
 
-            lblTotalAmount.Text = "0.00"; // Zera o total do pedido
+            lblTotalAmount.Text = "R$ 0,00"; // Zera o total do pedido
             lstOrderItems.Items.Clear(); // Limpa a lista de itens
             btnNewOrder.Enabled = false; // Desabilita o botão de criar pedido após o pedido ser criado
 
@@ -152,7 +153,7 @@ namespace GerenciadorProdutoECliente.Forms
             {
                 lblProduct.Text = product.Name;
                 lblProductId.Text = product.Id.ToString();
-                lblProductPrice.Text = product.UnitPrice.ToString("C");
+                lblProductPrice.Text = ConvertCurrency.ConvertToReal(product.UnitPrice);
                 currentItem.Product = product;
                 currentItem.ProductId = product.Id;
                 currentItem.UnitPrice = product.UnitPrice;
@@ -172,7 +173,7 @@ namespace GerenciadorProdutoECliente.Forms
             }
             else
             {
-                lblProductTotalPrice.Text = "Preço total do produto: 0.00"; // Se não houver quantidade válida
+                lblProductTotalPrice.Text = "Preço total do produto: R$ 0,00"; // Se não houver quantidade válida
             }
         }
 
@@ -201,22 +202,32 @@ namespace GerenciadorProdutoECliente.Forms
                 OrderItem existingItem = currentOrder.OrderItems.FirstOrDefault(item => item.ProductId == currentItem.ProductId);
                 if (existingItem != null)
                 {
+                    string unitPrice = ConvertCurrency.ConvertToReal(existingItem.UnitPrice); // Formata o valor unitário
+
+                    string totalValue = ConvertCurrency.ConvertToReal(existingItem.TotalValue); // Formata o valor total
+
                     existingItem.Quantity = currentItem.Quantity; // Atualiza a quantidade
                     existingItem.CalculateTotalValue(); // Recalcula o valor total
-                    lstOrderItems.Items[lstOrderItems.SelectedIndex] = $"{existingItem.Product.Name} - {existingItem.Quantity} x {existingItem.UnitPrice:C} = {existingItem.TotalValue:C}";
+                    lstOrderItems.Items[lstOrderItems.SelectedIndex] = $"{existingItem.Product.Name} - " +
+                        $"{existingItem.Quantity} x {unitPrice} = {totalValue}";
                 }
                 else
                 {
                     // Adiciona o novo item
                     currentOrder.OrderItems.Add(currentItem);
 
+                    string unitPrice = ConvertCurrency.ConvertToReal(existingItem.UnitPrice); // Formata o valor unitário
+
+                    string totalValue = ConvertCurrency.ConvertToReal(existingItem.TotalValue); // Formata o valor total
+
                     // Atualiza a lista visual de itens do pedido
-                    lstOrderItems.Items.Add($"{currentItem.Product.Name} - {currentItem.Quantity} x {currentItem.UnitPrice:C} = {currentItem.TotalValue:C}");
+                    lstOrderItems.Items.Add($"{currentItem.Product.Name} - " +
+                        $"{currentItem.Quantity} x {unitPrice} = {totalValue}");
                 }
 
                 // Atualiza o total do pedido
                 orderService.UpdateTotalAmount(currentOrder);
-                lblTotalAmount.Text = currentOrder.TotalAmount.ToString("C");
+                lblTotalAmount.Text = ConvertCurrency.ConvertToReal(currentOrder.TotalAmount);
 
                 // Limpa os campos para o próximo item
                 ClearProductFields();
@@ -239,7 +250,7 @@ namespace GerenciadorProdutoECliente.Forms
 
                 // Recalcula o total do pedido
                 orderService.UpdateTotalAmount(currentOrder);
-                lblTotalAmount.Text = currentOrder.TotalAmount.ToString("C");
+                lblTotalAmount.Text = ConvertCurrency.ConvertToReal(currentOrder.TotalAmount);
             }
             else
             {
@@ -257,7 +268,7 @@ namespace GerenciadorProdutoECliente.Forms
                 // Preenche os campos com as informações do item
                 lblProduct.Text = selectedItem.Product.Name;
                 lblProductId.Text = selectedItem.ProductId.ToString();
-                lblProductPrice.Text = selectedItem.UnitPrice.ToString("C");
+                lblProductPrice.Text = ConvertCurrency.ConvertToReal(selectedItem.UnitPrice); // Formata para real
                 txtQuantity.Text = selectedItem.Quantity.ToString();
 
                 // Atualiza o item atual para edição
@@ -279,7 +290,6 @@ namespace GerenciadorProdutoECliente.Forms
                 if (OrderIdSave != 0)
                 {
                     MessageBox.Show("Pedido salvo com sucesso!");
-                    lblOrderId.Text = OrderIdSave.ToString();
                 }
                 else
                 {
@@ -320,9 +330,14 @@ namespace GerenciadorProdutoECliente.Forms
 
                 if (currentOrder != null)
                 {
+                    ClientService clientService = new ClientService(new ClientRepository()); // Instancia ClientService
+                    Client client = clientService.GetClientById(currentOrder.ClientId); // Procura o cliente pelo ID do cliente no pedido
+
+                    string clientName = client.Name ?? "Desconhecido"; // Se não encontrar o nome do cliente retorna desconhecido
+
                     // Preenche os campos do formulário com as informações do pedido
-                    lblClientName.Text = $"Pedido de: {currentOrder.Client?.Name ?? "Desconhecido"}";
-                    lblTotalAmount.Text = currentOrder.TotalAmount.ToString("C");
+                    lblClientName.Text = $"Pedido de: {clientName}";
+                    lblTotalAmount.Text = ConvertCurrency.ConvertToReal(currentOrder.TotalAmount);
 
                     // Preenche a lista de itens do pedido
                     lstOrderItems.Items.Clear();
@@ -335,11 +350,21 @@ namespace GerenciadorProdutoECliente.Forms
                         // Verifica se o produto foi encontrado e adiciona à lista
                         if (item.Product != null)
                         {
-                            lstOrderItems.Items.Add($"{item.Product.Name} - {item.Quantity} x {item.UnitPrice:C} = {item.TotalValue:C}");
+                            string unitPrice = ConvertCurrency.ConvertToReal(item.UnitPrice); // Formata o valor unitário
+
+                            string totalValue = ConvertCurrency.ConvertToReal(item.TotalValue); // Formata o valor total
+
+                            lstOrderItems.Items.Add($"{item.Product.Name} - {item.Quantity} x " +
+                                $"{unitPrice} = {totalValue}");
                         }
                         else
                         {
-                            lstOrderItems.Items.Add($"Produto não encontrado para o item - {item.Quantity} x {item.UnitPrice:C} = {item.TotalValue:C}");
+                            string unitPrice = ConvertCurrency.ConvertToReal(item.UnitPrice); // Formata o valor unitário
+
+                            string totalValue = ConvertCurrency.ConvertToReal(item.TotalValue); // Formata o valor total
+
+                            lstOrderItems.Items.Add($"Produto não encontrado para o item - {item.Quantity} x " +
+                                $"{unitPrice} = {totalValue}");
                         }
                     }
                     OrderIdSave = currentOrder.Id;
@@ -371,7 +396,6 @@ namespace GerenciadorProdutoECliente.Forms
                 if (isUpdated)
                 {
                     MessageBox.Show("Pedido atualizado com sucesso!");
-                    lblOrderId.Text = currentOrder.Id.ToString(); // Exibe o ID do pedido atualizado
                 }
                 else
                 {
@@ -382,101 +406,6 @@ namespace GerenciadorProdutoECliente.Forms
             {
                 MessageBox.Show("Por favor, adicione ao menos um produto ao pedido.");
             }
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtOrderIdSearch_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblOrderId_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblProductPrice_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblProductId_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblTotalAmount_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblProductTotalPrice_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblProduct_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtProductSearch_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblClientName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lstOrderItems_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtClientIdentifier_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblClient_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

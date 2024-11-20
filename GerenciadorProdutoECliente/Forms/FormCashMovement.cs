@@ -38,7 +38,7 @@ namespace GerenciadorProdutoECliente.Forms
                 // Exibir as informações do pedido
                 lblOrderId.Text = order.Id.ToString();  // Exibe o ID do pedido
                 lblDataOrder.Text = order.OrderDate.ToString("dd/MM/yyyy");  // Exibe a data do pedido
-                lblAmountDue.Text = order.TotalAmount.ToString("C2");  // Exibe o valor a pagar
+                lblAmountDue.Text = ConvertCurrency.ConvertToReal(order.TotalAmount);  // Exibe o valor a pagar
                 _amountDue = order.TotalAmount;
 
                 // Preencher o ListBox com os itens do pedido
@@ -51,14 +51,18 @@ namespace GerenciadorProdutoECliente.Forms
                     // Obtém o produto relacionado ao item
                     item.Product = _orderService.GetProductByIdentifier(idString);
 
+                    string unitPrice = ConvertCurrency.ConvertToReal(item.UnitPrice); // Formata o valor unitário
+
+                    string totalValue = ConvertCurrency.ConvertToReal(item.TotalValue); // Formata o valor total
+
                     // Verifica se o produto foi encontrado e adiciona à lista
                     if (item.Product != null)
                     {
-                        lstOrderItems.Items.Add($"{item.Product.Name} - {item.Quantity} x {item.UnitPrice:C} = {item.TotalValue:C}");
+                        lstOrderItems.Items.Add($"{item.Product.Name} - {item.Quantity} x {unitPrice} = {totalValue}");
                     }
                     else
                     {
-                        lstOrderItems.Items.Add($"Produto não encontrado para o item - {item.Quantity} x {item.UnitPrice:C} = {item.TotalValue:C}");
+                        lstOrderItems.Items.Add($"Produto não encontrado para o item - {item.Quantity} x {unitPrice} = {totalValue}");
                     }
                 }
             }
@@ -88,14 +92,14 @@ namespace GerenciadorProdutoECliente.Forms
                 pdfReport.GenerateReport(filePath);
 
                 // Exibir uma mensagem de sucesso
-                MessageBox.Show($"Invoice report generated successfully. Saved at {filePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Invoice gerado com sucesso! Salvo em {filePath}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Opcional: abrir o arquivo PDF gerado
                 System.Diagnostics.Process.Start(filePath);
             }
             else
             {
-                MessageBox.Show("Order not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Pedido não encontrato.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -158,17 +162,18 @@ namespace GerenciadorProdutoECliente.Forms
                 // Calcular o troco
                 if (paidAmount >= _amountDue)
                 {
-                    decimal change = paidAmount - _amountDue;
-                    lblChange.Text = change.ToString("C2");  // Exibe o troco na label
+                    // Calcula o troco
+                    string change = ConvertCurrency.ConvertToReal(paidAmount - _amountDue); // Formata para Real
+                    lblChange.Text = change;  // Exibe o troco na label
                 }
                 else
                 {
-                    lblChange.Text = "$ 0.00";  // Se o valor pago for menor, mostrar troco zero
+                    lblChange.Text = "R$ 0,00";  // Se o valor pago for menor, mostrar troco zero
                 }
             }
             else
             {
-                lblChange.Text = "$ 0.00";  // Caso o valor seja inválido, mostrar troco zero
+                lblChange.Text = "R$ 0,00";  // Caso o valor seja inválido, mostrar troco zero
             }
         }
     }

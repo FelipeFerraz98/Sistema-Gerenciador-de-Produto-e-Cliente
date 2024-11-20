@@ -53,7 +53,6 @@
             this.lblTotalAmount = new System.Windows.Forms.Label();
             this.lblProductId = new System.Windows.Forms.Label();
             this.lblProductPrice = new System.Windows.Forms.Label();
-            this.lblOrderId = new System.Windows.Forms.Label();
             this.txtOrderIdSearch = new System.Windows.Forms.TextBox();
             this.btnSearchOrder = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -71,7 +70,6 @@
             this.lblClient.Size = new System.Drawing.Size(103, 13);
             this.lblClient.TabIndex = 0;
             this.lblClient.Text = "Cliente (CPF/CNPJ):";
-            this.lblClient.Click += new System.EventHandler(this.lblClient_Click);
             // 
             // txtClientIdentifier
             // 
@@ -79,7 +77,6 @@
             this.txtClientIdentifier.Name = "txtClientIdentifier";
             this.txtClientIdentifier.Size = new System.Drawing.Size(193, 20);
             this.txtClientIdentifier.TabIndex = 1;
-            this.txtClientIdentifier.TextChanged += new System.EventHandler(this.txtClientIdentifier_TextChanged);
             // 
             // btnNewOrder
             // 
@@ -98,7 +95,6 @@
             this.lstOrderItems.Name = "lstOrderItems";
             this.lstOrderItems.Size = new System.Drawing.Size(390, 95);
             this.lstOrderItems.TabIndex = 3;
-            this.lstOrderItems.SelectedIndexChanged += new System.EventHandler(this.lstOrderItems_SelectedIndexChanged);
             // 
             // lblClientName
             // 
@@ -108,7 +104,6 @@
             this.lblClientName.Size = new System.Drawing.Size(55, 13);
             this.lblClientName.TabIndex = 4;
             this.lblClientName.Text = "Pedido de";
-            this.lblClientName.Click += new System.EventHandler(this.lblClientName_Click);
             // 
             // label1
             // 
@@ -118,7 +113,6 @@
             this.label1.Size = new System.Drawing.Size(178, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Nome ou ID do Produto para busca:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // txtProductSearch
             // 
@@ -126,7 +120,6 @@
             this.txtProductSearch.Name = "txtProductSearch";
             this.txtProductSearch.Size = new System.Drawing.Size(143, 20);
             this.txtProductSearch.TabIndex = 6;
-            this.txtProductSearch.TextChanged += new System.EventHandler(this.txtProductSearch_TextChanged);
             // 
             // btnSearchProduct
             // 
@@ -156,7 +149,6 @@
             this.label2.Size = new System.Drawing.Size(176, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "Deseja criar o pedido deste cliente?";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // lblProduct
             // 
@@ -166,7 +158,6 @@
             this.lblProduct.Size = new System.Drawing.Size(90, 13);
             this.lblProduct.TabIndex = 10;
             this.lblProduct.Text = "Nome do Produto";
-            this.lblProduct.Click += new System.EventHandler(this.lblProduct_Click);
             // 
             // label5
             // 
@@ -176,7 +167,6 @@
             this.label5.Size = new System.Drawing.Size(71, 13);
             this.label5.TabIndex = 11;
             this.label5.Text = "Id do Produto";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 
@@ -186,7 +176,6 @@
             this.label6.Size = new System.Drawing.Size(122, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "Valor unitário do produto";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label3
             // 
@@ -196,7 +185,6 @@
             this.label3.Size = new System.Drawing.Size(62, 13);
             this.label3.TabIndex = 13;
             this.label3.Text = "Quantidade";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // txtQuantity
             // 
@@ -214,7 +202,6 @@
             this.lblProductTotalPrice.Size = new System.Drawing.Size(126, 13);
             this.lblProductTotalPrice.TabIndex = 15;
             this.lblProductTotalPrice.Text = "Valor total deste Produto:";
-            this.lblProductTotalPrice.Click += new System.EventHandler(this.lblProductTotalPrice_Click);
             // 
             // btnAddProductToOrder
             // 
@@ -264,7 +251,6 @@
             this.label.Size = new System.Drawing.Size(85, 13);
             this.label.TabIndex = 20;
             this.label.Text = "Total do Pedido:";
-            this.label.Click += new System.EventHandler(this.label_Click);
             // 
             // btnGoToCashier
             // 
@@ -281,10 +267,9 @@
             this.lblTotalAmount.AutoSize = true;
             this.lblTotalAmount.Location = new System.Drawing.Point(121, 374);
             this.lblTotalAmount.Name = "lblTotalAmount";
-            this.lblTotalAmount.Size = new System.Drawing.Size(28, 13);
+            this.lblTotalAmount.Size = new System.Drawing.Size(45, 13);
             this.lblTotalAmount.TabIndex = 23;
-            this.lblTotalAmount.Text = "0.00";
-            this.lblTotalAmount.Click += new System.EventHandler(this.lblTotalAmount_Click);
+            this.lblTotalAmount.Text = "R$ 0,00";
             // 
             // lblProductId
             // 
@@ -293,27 +278,15 @@
             this.lblProductId.Name = "lblProductId";
             this.lblProductId.Size = new System.Drawing.Size(0, 13);
             this.lblProductId.TabIndex = 24;
-            this.lblProductId.Click += new System.EventHandler(this.lblProductId_Click);
             // 
             // lblProductPrice
             // 
             this.lblProductPrice.AutoSize = true;
             this.lblProductPrice.Location = new System.Drawing.Point(154, 209);
             this.lblProductPrice.Name = "lblProductPrice";
-            this.lblProductPrice.Size = new System.Drawing.Size(28, 13);
+            this.lblProductPrice.Size = new System.Drawing.Size(45, 13);
             this.lblProductPrice.TabIndex = 25;
-            this.lblProductPrice.Text = "0.00";
-            this.lblProductPrice.Click += new System.EventHandler(this.lblProductPrice_Click);
-            // 
-            // lblOrderId
-            // 
-            this.lblOrderId.AutoSize = true;
-            this.lblOrderId.Location = new System.Drawing.Point(293, 374);
-            this.lblOrderId.Name = "lblOrderId";
-            this.lblOrderId.Size = new System.Drawing.Size(13, 13);
-            this.lblOrderId.TabIndex = 26;
-            this.lblOrderId.Text = "0";
-            this.lblOrderId.Click += new System.EventHandler(this.lblOrderId_Click);
+            this.lblProductPrice.Text = "R$ 0,00";
             // 
             // txtOrderIdSearch
             // 
@@ -321,7 +294,6 @@
             this.txtOrderIdSearch.Name = "txtOrderIdSearch";
             this.txtOrderIdSearch.Size = new System.Drawing.Size(131, 20);
             this.txtOrderIdSearch.TabIndex = 27;
-            this.txtOrderIdSearch.TextChanged += new System.EventHandler(this.txtOrderIdSearch_TextChanged);
             // 
             // btnSearchOrder
             // 
@@ -341,7 +313,6 @@
             this.label4.Size = new System.Drawing.Size(106, 13);
             this.label4.TabIndex = 29;
             this.label4.Text = "Insira o ID do Pedido";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // btnUpdateOrder
             // 
@@ -392,7 +363,6 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnSearchOrder);
             this.Controls.Add(this.txtOrderIdSearch);
-            this.Controls.Add(this.lblOrderId);
             this.Controls.Add(this.lblProductPrice);
             this.Controls.Add(this.lblProductId);
             this.Controls.Add(this.lblTotalAmount);
@@ -452,7 +422,6 @@
         private System.Windows.Forms.Label lblTotalAmount;
         private System.Windows.Forms.Label lblProductId;
         private System.Windows.Forms.Label lblProductPrice;
-        private System.Windows.Forms.Label lblOrderId;
         private System.Windows.Forms.TextBox txtOrderIdSearch;
         private System.Windows.Forms.Button btnSearchOrder;
         private System.Windows.Forms.Label label4;
