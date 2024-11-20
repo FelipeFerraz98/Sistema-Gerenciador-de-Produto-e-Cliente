@@ -136,6 +136,7 @@
             this.btnFinalizePayment.TabIndex = 10;
             this.btnFinalizePayment.Text = "Finalizar Pagamento";
             this.btnFinalizePayment.UseVisualStyleBackColor = true;
+            this.btnFinalizePayment.Click += new System.EventHandler(this.btnFinalizePayment_Click);
             // 
             // FormCashMovement
             // 
@@ -155,6 +156,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FormCashMovement";
             this.Text = "FormCashMovement";
+            this.Load += new System.EventHandler(this.FormCashMovement_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
