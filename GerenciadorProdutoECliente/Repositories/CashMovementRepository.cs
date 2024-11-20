@@ -14,14 +14,15 @@ namespace GerenciadorProdutoECliente.Repositories
             using (NpgsqlConnection connection = DBConnection.OpenConnection())
             {
                 string query = @"
-                    INSERT INTO caixa_pedidos (pedido_id, pago, pagar, forma_pagamento)
-                    VALUES (@OrderId, @Paid, @AmountDue, @PaymentMethod);";
+                    INSERT INTO caixa_pedidos (pedido_id, pago, pagar, troco, forma_pagamento)
+                    VALUES (@OrderId, @Paid, @AmountDue, @Change, @PaymentMethod);";
 
                 using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@OrderId", cashMovement.OrderId);
                     command.Parameters.AddWithValue("@Paid", cashMovement.Paid);
                     command.Parameters.AddWithValue("@AmountDue", cashMovement.AmountDue);
+                    command.Parameters.AddWithValue("@Change", cashMovement.Change); 
                     command.Parameters.AddWithValue("@PaymentMethod", cashMovement.PaymentMethod.ToString()); // Enum convertido para string
 
                     return command.ExecuteNonQuery() > 0;
@@ -35,7 +36,7 @@ namespace GerenciadorProdutoECliente.Repositories
             using (NpgsqlConnection connection = DBConnection.OpenConnection())
             {
                 string query = @"
-                    SELECT id, pedido_id, pago, pagar, forma_pagamento
+                    SELECT id, pedido_id, pago, pagar, troco, forma_pagamento
                     FROM caixa_pedidos
                     WHERE pedido_id = @OrderId;";
 
@@ -53,7 +54,8 @@ namespace GerenciadorProdutoECliente.Repositories
                                 OrderId = reader.GetInt32(1),
                                 Paid = reader.GetDecimal(2),
                                 AmountDue = reader.GetDecimal(3),
-                                PaymentMethod = (PaymentMethod)Enum.Parse(typeof(PaymentMethod), reader.GetString(4)) // Convertendo de string para enum
+                                Change = reader.GetDecimal(4),
+                                PaymentMethod = (PaymentMethod)Enum.Parse(typeof(PaymentMethod), reader.GetString(5)) // Convertendo de string para enum
                             };
                         }
                     }
