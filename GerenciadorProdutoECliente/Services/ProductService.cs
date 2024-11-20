@@ -54,6 +54,12 @@ namespace GerenciadorProdutoECliente.Services
             }
         }
 
+        public Product GetProductById(int id)
+        {
+            string stringId = id.ToString();
+            return GetProductByIdentifier(stringId);
+        }
+
         // Método para buscar produto por identificador (ID ou nome)
         public Product GetProductByIdentifier(string identifier)
         {

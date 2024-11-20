@@ -2,6 +2,7 @@
 using GerenciadorProdutoECliente.Models;
 using GerenciadorProdutoECliente.Repositories;
 using GerenciadorProdutoECliente.Services;
+using GerenciadorProdutoECliente.Utils;
 using System;
 using System.Windows.Forms;
 
@@ -72,6 +73,31 @@ namespace GerenciadorProdutoECliente.Forms
             cmbPaymentMethod.SelectedIndex = 0;  // Seleciona o primeiro item da lista (ex: Dinheiro)
 
         }
+        private void OnOrderCompleted(decimal paidAmount)
+        {
+            // Obter o pedido do OrderService usando o ID do pedido
+            var order = _orderService.GetOrderById(_orderId);
+
+            if (order != null)
+            {
+                // Gerar o relatório do pedido em PDF
+                string filePath = $"Order_Report_{order.Id}_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.pdf";
+
+                // Criar o PDF
+                PDFOrderReport pdfReport = new PDFOrderReport(order, paidAmount);
+                pdfReport.GenerateReport(filePath);
+
+                // Exibir uma mensagem de sucesso
+                MessageBox.Show($"Invoice report generated successfully. Saved at {filePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Opcional: abrir o arquivo PDF gerado
+                System.Diagnostics.Process.Start(filePath);
+            }
+            else
+            {
+                MessageBox.Show("Order not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void btnFinalizePayment_Click(object sender, EventArgs e)
         {
@@ -113,6 +139,8 @@ namespace GerenciadorProdutoECliente.Forms
                 {
                     MessageBox.Show("Erro ao finalizar o pedido.");
                 }
+
+                OnOrderCompleted(paidAmount);
 
                 this.Close();  // Fechar o formulário após o pagamento ser registrado
             }

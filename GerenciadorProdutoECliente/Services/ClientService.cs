@@ -118,7 +118,7 @@ namespace GerenciadorProdutoECliente.Services
             {
                 Console.WriteLine($"Erro ao deletar cliente: {ex.Message}");
                 return false;
-            }
+            } 
         }
 
         // Método para validar CPF ou CNPJ
