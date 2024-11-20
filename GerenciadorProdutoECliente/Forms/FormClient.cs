@@ -2,8 +2,10 @@
 using GerenciadorProdutoECliente.Models;
 using GerenciadorProdutoECliente.Repositories;
 using GerenciadorProdutoECliente.Services;
+using Org.BouncyCastle.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -13,6 +15,7 @@ namespace GerenciadorProdutoECliente.Forms
     public partial class FormClient : Form
     {
         private readonly ClientService _clientService;
+        private readonly CepService _cepService;
         private int ClientIdSave { get; set; }
 
         public FormClient()
@@ -21,6 +24,7 @@ namespace GerenciadorProdutoECliente.Forms
             _clientService = new ClientService(new ClientRepository());
             ClientIdSave = 0;
             btnClient.Enabled = false;
+            _cepService = new CepService(); // Inicializa o Service
         }
 
         private void ClearFields()
@@ -227,9 +231,42 @@ namespace GerenciadorProdutoECliente.Forms
             FormManager.SwitchForm(currentForm, newForm);
         }
 
-        private void txtZipCode_TextChanged(object sender, EventArgs e)
+        private async void txtZipCode_TextChanged(object sender, EventArgs e)
         {
+            //Remove espaço no começo e no final
+            string zipCode = txtZipCode.Text.Trim();
 
+            // Remove qualquer caractere que não seja número (incluindo o '-')
+            zipCode = new string(zipCode.Where(char.IsDigit).ToArray());
+
+            // Verifica se o CEP tem o tamanho correto (8 dígitos)
+            if (zipCode.Length == 8)
+            {
+                try
+                {
+                    // Chama o Service para buscar os dados do CEP
+                    CepResponse cepResponse = await _cepService.ConsultCepAsync(zipCode);
+
+                    // Preenche os campos com os dados do CEP
+                    txtZipCode.Text = cepResponse.Cep;
+                    txtStreet.Text = cepResponse.Logradouro;
+                    txtNeighborhood.Text = cepResponse.Bairro;
+                    txtCity.Text = cepResponse.Localidade;
+                    txtState.Text = cepResponse.Uf;
+                }
+                catch (Exception ex)
+                {
+                    // Caso haja erro, exibe uma mensagem de erro para o usuário
+                    MessageBox.Show($"Erro: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (zipCode.Length == 0)
+            {
+                txtStreet.Text = string.Empty;
+                txtNeighborhood.Text = string.Empty;
+                txtCity.Text = string.Empty;
+                txtState.Text = string.Empty;
+            }
         }
     }
 }
