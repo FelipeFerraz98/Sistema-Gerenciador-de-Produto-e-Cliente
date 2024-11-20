@@ -175,6 +175,7 @@
             this.btnOrder.TabIndex = 35;
             this.btnOrder.Text = "Pedido";
             this.btnOrder.UseVisualStyleBackColor = true;
+            this.btnOrder.Click += new System.EventHandler(this.btnOrder_Click);
             // 
             // btnProduct
             // 
@@ -193,6 +194,7 @@
             this.btnClient.TabIndex = 33;
             this.btnClient.Text = "Cliente";
             this.btnClient.UseVisualStyleBackColor = true;
+            this.btnClient.Click += new System.EventHandler(this.btnClient_Click);
             // 
             // FormProduct
             // 

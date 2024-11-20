@@ -96,6 +96,11 @@ namespace GerenciadorProdutoECliente.Forms
 
                 // Opcional: abrir o arquivo PDF gerado
                 System.Diagnostics.Process.Start(filePath);
+
+                Form currentForm = this; // Ou outro formulário atual se necessário
+                Form newForm = new FormOrder(); // Cria uma nova instância de FormOrder
+
+                FormManager.SwitchForm(currentForm, newForm);
             }
             else
             {
@@ -145,8 +150,6 @@ namespace GerenciadorProdutoECliente.Forms
                 }
 
                 OnOrderCompleted(paidAmount);
-
-                this.Close();  // Fechar o formulário após o pagamento ser registrado
             }
             else
             {

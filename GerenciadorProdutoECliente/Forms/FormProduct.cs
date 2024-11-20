@@ -16,6 +16,7 @@ namespace GerenciadorProdutoECliente.Forms
             InitializeComponent();
             _productService = new ProductService(new ProductRepository());
             ProductIdSave = 0;
+            btnProduct.Enabled = false;
         }
         private void ClearFields()
         {
@@ -161,6 +162,22 @@ namespace GerenciadorProdutoECliente.Forms
             {
                 MessageBox.Show("Erro ao remover produto.");
             }
+        }
+
+        private void btnClient_Click(object sender, EventArgs e)
+        {
+            Form currentForm = this; // Ou outro formulário atual se necessário
+            Form newForm = new FormClient(); // Cria uma nova instância de FormClient
+
+            FormManager.SwitchForm(currentForm, newForm);
+        }
+
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+            Form currentForm = this; // Ou outro formulário atual se necessário
+            Form newForm = new FormOrder(); // Cria uma nova instância de FormOrder
+
+            FormManager.SwitchForm(currentForm, newForm);
         }
     }
 }

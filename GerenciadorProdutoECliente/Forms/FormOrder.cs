@@ -30,6 +30,8 @@ namespace GerenciadorProdutoECliente.Forms
 
             // Inicializa o formulário com os componentes desabilitados
             DisableAllControls();
+
+            btnOrder.Enabled = false;
         }
 
         // Desabilita todos os controles, exceto a busca de cliente
@@ -406,6 +408,22 @@ namespace GerenciadorProdutoECliente.Forms
             {
                 MessageBox.Show("Por favor, adicione ao menos um produto ao pedido.");
             }
+        }
+
+        private void btnClient_Click(object sender, EventArgs e)
+        {
+            Form currentForm = this; // Ou outro formulário atual se necessário
+            Form newForm = new FormClient(); // Cria uma nova instância de FormClient
+
+            FormManager.SwitchForm(currentForm, newForm);
+        }
+
+        private void btnProduct_Click(object sender, EventArgs e)
+        {
+            Form currentForm = this; // Ou outro formulário atual se necessário
+            Form newForm = new FormProduct(); // Cria uma nova instância de FormProduct
+
+            FormManager.SwitchForm(currentForm, newForm);
         }
     }
 }

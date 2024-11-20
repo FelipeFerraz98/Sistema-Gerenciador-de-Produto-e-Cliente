@@ -129,6 +129,7 @@
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Utils\ConvertCurrency.cs" />
     <Compile Include="Utils\Formatter.cs" />
+    <Compile Include="Utils\FormManager.cs" />
     <Compile Include="Utils\PDFOrderReport.cs" />
     <EmbeddedResource Include="Forms\FormCashMovement.resx">
       <DependentUpon>FormCashMovement.cs</DependentUpon>

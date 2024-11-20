@@ -20,6 +20,7 @@ namespace GerenciadorProdutoECliente.Forms
             InitializeComponent();
             _clientService = new ClientService(new ClientRepository());
             ClientIdSave = 0;
+            btnClient.Enabled = false;
         }
 
         private void ClearFields()
@@ -208,6 +209,22 @@ namespace GerenciadorProdutoECliente.Forms
             else if(!success && ClientIdSave != 0) {
                 MessageBox.Show("Erro ao atualizar cliente.");
             }
+        }
+
+        private void btnProduct_Click(object sender, EventArgs e)
+        {
+            Form currentForm = this; // Ou outro formulário atual se necessário
+            Form newForm = new FormProduct(); // Cria uma nova instância de FormProduct
+
+            FormManager.SwitchForm(currentForm, newForm);
+        }
+
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+            Form currentForm = this; // Ou outro formulário atual se necessário
+            Form newForm = new FormOrder(); // Cria uma nova instância de FormOrder
+
+            FormManager.SwitchForm(currentForm, newForm);
         }
     }
 }
