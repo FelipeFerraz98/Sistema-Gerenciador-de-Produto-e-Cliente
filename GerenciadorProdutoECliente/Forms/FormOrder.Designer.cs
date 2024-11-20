@@ -39,8 +39,8 @@
             this.btnSearchClient = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lblProduct = new System.Windows.Forms.Label();
-            this.lblProductId = new System.Windows.Forms.Label();
-            this.lblProductPrice = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtQuantity = new System.Windows.Forms.TextBox();
             this.lblProductTotalPrice = new System.Windows.Forms.Label();
@@ -48,9 +48,11 @@
             this.btnRemoveItem = new System.Windows.Forms.Button();
             this.btnEditItem = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.lblTotalAmount = new System.Windows.Forms.Label();
-            this.btnRecalculateTotal = new System.Windows.Forms.Button();
+            this.label = new System.Windows.Forms.Label();
             this.btnGoToCashier = new System.Windows.Forms.Button();
+            this.lblTotalAmount = new System.Windows.Forms.Label();
+            this.lblProductId = new System.Windows.Forms.Label();
+            this.lblProductPrice = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblClient
@@ -77,6 +79,7 @@
             this.btnNewOrder.TabIndex = 2;
             this.btnNewOrder.Text = "Criar Pedido";
             this.btnNewOrder.UseVisualStyleBackColor = true;
+            this.btnNewOrder.Click += new System.EventHandler(this.btnNewOrder_Click);
             // 
             // lstOrderItems
             // 
@@ -119,6 +122,7 @@
             this.btnSearchProduct.TabIndex = 7;
             this.btnSearchProduct.Text = "Buscar Produto";
             this.btnSearchProduct.UseVisualStyleBackColor = true;
+            this.btnSearchProduct.Click += new System.EventHandler(this.btnSearchProduct_Click);
             // 
             // btnSearchClient
             // 
@@ -128,6 +132,7 @@
             this.btnSearchClient.TabIndex = 8;
             this.btnSearchClient.Text = "Buscar Cliente";
             this.btnSearchClient.UseVisualStyleBackColor = true;
+            this.btnSearchClient.Click += new System.EventHandler(this.btnSearchClient_Click);
             // 
             // label2
             // 
@@ -147,23 +152,23 @@
             this.lblProduct.TabIndex = 10;
             this.lblProduct.Text = "Nome do Produto";
             // 
-            // lblProductId
+            // label5
             // 
-            this.lblProductId.AutoSize = true;
-            this.lblProductId.Location = new System.Drawing.Point(27, 156);
-            this.lblProductId.Name = "lblProductId";
-            this.lblProductId.Size = new System.Drawing.Size(71, 13);
-            this.lblProductId.TabIndex = 11;
-            this.lblProductId.Text = "Id do Produto";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(27, 156);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(71, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Id do Produto";
             // 
-            // lblProductPrice
+            // label6
             // 
-            this.lblProductPrice.AutoSize = true;
-            this.lblProductPrice.Location = new System.Drawing.Point(26, 187);
-            this.lblProductPrice.Name = "lblProductPrice";
-            this.lblProductPrice.Size = new System.Drawing.Size(122, 13);
-            this.lblProductPrice.TabIndex = 12;
-            this.lblProductPrice.Text = "Valor unitário do produto";
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(26, 187);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(122, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Valor unitário do produto";
             // 
             // label3
             // 
@@ -180,11 +185,12 @@
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(100, 20);
             this.txtQuantity.TabIndex = 14;
+            this.txtQuantity.TextChanged += new System.EventHandler(this.txtQuantity_TextChanged);
             // 
             // lblProductTotalPrice
             // 
             this.lblProductTotalPrice.AutoSize = true;
-            this.lblProductTotalPrice.Location = new System.Drawing.Point(26, 200);
+            this.lblProductTotalPrice.Location = new System.Drawing.Point(26, 203);
             this.lblProductTotalPrice.Name = "lblProductTotalPrice";
             this.lblProductTotalPrice.Size = new System.Drawing.Size(126, 13);
             this.lblProductTotalPrice.TabIndex = 15;
@@ -192,12 +198,13 @@
             // 
             // btnAddProductToOrder
             // 
-            this.btnAddProductToOrder.Location = new System.Drawing.Point(29, 216);
+            this.btnAddProductToOrder.Location = new System.Drawing.Point(29, 220);
             this.btnAddProductToOrder.Name = "btnAddProductToOrder";
             this.btnAddProductToOrder.Size = new System.Drawing.Size(75, 23);
             this.btnAddProductToOrder.TabIndex = 16;
             this.btnAddProductToOrder.Text = "Adicionar";
             this.btnAddProductToOrder.UseVisualStyleBackColor = true;
+            this.btnAddProductToOrder.Click += new System.EventHandler(this.btnAddProductToOrder_Click);
             // 
             // btnRemoveItem
             // 
@@ -207,6 +214,7 @@
             this.btnRemoveItem.TabIndex = 17;
             this.btnRemoveItem.Text = "Remover Item";
             this.btnRemoveItem.UseVisualStyleBackColor = true;
+            this.btnRemoveItem.Click += new System.EventHandler(this.btnRemoveItem_Click);
             // 
             // btnEditItem
             // 
@@ -216,51 +224,72 @@
             this.btnEditItem.TabIndex = 18;
             this.btnEditItem.Text = "Editar Item";
             this.btnEditItem.UseVisualStyleBackColor = true;
+            this.btnEditItem.Click += new System.EventHandler(this.btnEditItem_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(136, 368);
+            this.btnSave.Location = new System.Drawing.Point(30, 368);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(99, 23);
             this.btnSave.TabIndex = 19;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // lblTotalAmount
+            // label
             // 
-            this.lblTotalAmount.AutoSize = true;
-            this.lblTotalAmount.Location = new System.Drawing.Point(30, 352);
-            this.lblTotalAmount.Name = "lblTotalAmount";
-            this.lblTotalAmount.Size = new System.Drawing.Size(85, 13);
-            this.lblTotalAmount.TabIndex = 20;
-            this.lblTotalAmount.Text = "Total do Pedido:";
-            // 
-            // btnRecalculateTotal
-            // 
-            this.btnRecalculateTotal.Location = new System.Drawing.Point(29, 368);
-            this.btnRecalculateTotal.Name = "btnRecalculateTotal";
-            this.btnRecalculateTotal.Size = new System.Drawing.Size(100, 23);
-            this.btnRecalculateTotal.TabIndex = 21;
-            this.btnRecalculateTotal.Text = "Recalcular Total";
-            this.btnRecalculateTotal.UseVisualStyleBackColor = true;
+            this.label.AutoSize = true;
+            this.label.Location = new System.Drawing.Point(30, 352);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(85, 13);
+            this.label.TabIndex = 20;
+            this.label.Text = "Total do Pedido:";
             // 
             // btnGoToCashier
             // 
-            this.btnGoToCashier.Location = new System.Drawing.Point(241, 368);
+            this.btnGoToCashier.Location = new System.Drawing.Point(135, 368);
             this.btnGoToCashier.Name = "btnGoToCashier";
             this.btnGoToCashier.Size = new System.Drawing.Size(99, 23);
             this.btnGoToCashier.TabIndex = 22;
             this.btnGoToCashier.Text = "Ir para Caixa";
             this.btnGoToCashier.UseVisualStyleBackColor = true;
             // 
+            // lblTotalAmount
+            // 
+            this.lblTotalAmount.AutoSize = true;
+            this.lblTotalAmount.Location = new System.Drawing.Point(121, 352);
+            this.lblTotalAmount.Name = "lblTotalAmount";
+            this.lblTotalAmount.Size = new System.Drawing.Size(28, 13);
+            this.lblTotalAmount.TabIndex = 23;
+            this.lblTotalAmount.Text = "0.00";
+            // 
+            // lblProductId
+            // 
+            this.lblProductId.AutoSize = true;
+            this.lblProductId.Location = new System.Drawing.Point(104, 156);
+            this.lblProductId.Name = "lblProductId";
+            this.lblProductId.Size = new System.Drawing.Size(0, 13);
+            this.lblProductId.TabIndex = 24;
+            // 
+            // lblProductPrice
+            // 
+            this.lblProductPrice.AutoSize = true;
+            this.lblProductPrice.Location = new System.Drawing.Point(154, 187);
+            this.lblProductPrice.Name = "lblProductPrice";
+            this.lblProductPrice.Size = new System.Drawing.Size(28, 13);
+            this.lblProductPrice.TabIndex = 25;
+            this.lblProductPrice.Text = "0.00";
+            // 
             // FormOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnGoToCashier);
-            this.Controls.Add(this.btnRecalculateTotal);
+            this.Controls.Add(this.lblProductPrice);
+            this.Controls.Add(this.lblProductId);
             this.Controls.Add(this.lblTotalAmount);
+            this.Controls.Add(this.btnGoToCashier);
+            this.Controls.Add(this.label);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnEditItem);
             this.Controls.Add(this.btnRemoveItem);
@@ -268,8 +297,8 @@
             this.Controls.Add(this.lblProductTotalPrice);
             this.Controls.Add(this.txtQuantity);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.lblProductPrice);
-            this.Controls.Add(this.lblProductId);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblProduct);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSearchClient);
@@ -301,8 +330,8 @@
         private System.Windows.Forms.Button btnSearchClient;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblProduct;
-        private System.Windows.Forms.Label lblProductId;
-        private System.Windows.Forms.Label lblProductPrice;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtQuantity;
         private System.Windows.Forms.Label lblProductTotalPrice;
@@ -310,8 +339,10 @@
         private System.Windows.Forms.Button btnRemoveItem;
         private System.Windows.Forms.Button btnEditItem;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label lblTotalAmount;
-        private System.Windows.Forms.Button btnRecalculateTotal;
+        private System.Windows.Forms.Label label;
         private System.Windows.Forms.Button btnGoToCashier;
+        private System.Windows.Forms.Label lblTotalAmount;
+        private System.Windows.Forms.Label lblProductId;
+        private System.Windows.Forms.Label lblProductPrice;
     }
 }
