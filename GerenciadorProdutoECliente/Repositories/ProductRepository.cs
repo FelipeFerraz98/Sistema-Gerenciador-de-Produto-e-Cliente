@@ -124,6 +124,26 @@ WHERE nome ILIKE @Name LIMIT 1";  // Limita a consulta a um único resultado
             }
         }
 
+        public bool DecreaseProductStock(int productId, int quantity)
+        {
+            using (NpgsqlConnection connection = DBConnection.OpenConnection())
+            {
+                string query = @"
+        UPDATE produtos 
+        SET quantidade_estoque = quantidade_estoque - @Quantity
+        WHERE id = @ProductId AND quantidade_estoque >= @Quantity;";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ProductId", productId);
+                    command.Parameters.AddWithValue("@Quantity", quantity);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0; // Se houve atualização
+                }
+            }
+        }
+
         // Deletar um produto pelo ID
         public bool DeleteProduct(int productId)
         {
