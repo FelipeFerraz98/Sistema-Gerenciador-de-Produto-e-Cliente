@@ -1,0 +1,69 @@
+-- Tabela de Clientes
+CREATE TABLE clientes (
+    id SERIAL PRIMARY KEY,                     -- ID único do cliente
+    nome VARCHAR(255) NOT NULL,                 -- Nome do cliente
+    cpf CHAR(11) UNIQUE,                        -- CPF com 11 caracteres e restrição UNIQUE
+    cnpj CHAR(14) UNIQUE,                       -- CNPJ com 14 caracteres e restrição UNIQUE
+    telefone VARCHAR(11),                       -- Telefone do cliente (varchar de 11 para celular, 10 para fixo)
+    email VARCHAR(255),                         -- Email do cliente
+    tipo_cliente CHAR(1)                        -- Tipo de cliente ('I' para Individual, 'J' para Jurídica)
+);
+
+-- Tabela de Endereços
+CREATE TABLE enderecos (
+    id SERIAL PRIMARY KEY,                     -- ID único do endereço
+    cep CHAR(8) NOT NULL,                      -- CEP
+    rua VARCHAR(255) NOT NULL,           -- Logradouro (rua, avenida, etc)
+    numero VARCHAR(6) NOT NULL,                -- Número do endereço
+    complemento VARCHAR(50),              -- Complemento do endereço
+    bairro VARCHAR(100),                        -- Bairro
+    cidade VARCHAR(100),                        -- Cidade ou localidade
+    uf CHAR(2),                                 -- Unidade federativa (estado)
+    cliente_id INT NOT NULL,                    -- Relacionamento com o cliente
+    CONSTRAINT fk_cliente_endereco FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE
+);
+
+
+-- Tabela de Produtos
+CREATE TABLE produtos (
+    id SERIAL PRIMARY KEY,                      -- ID único do produto
+    nome VARCHAR(255) NOT NULL,                  -- Nome do produto
+    quantidade_estoque INT NOT NULL,             -- Quantidade em estoque
+    preco_unitario NUMERIC(10, 2) NOT NULL,      -- Preço unitário do produto
+    descricao TEXT                               -- Descrição do produto
+);
+
+-- Tabela de Pedidos
+CREATE TABLE pedidos (
+    id SERIAL PRIMARY KEY,                      -- ID único do pedido
+    cliente_id INT NOT NULL,                     -- Relacionamento com o cliente
+    data_pedido DATE NOT NULL,                   -- Data do pedido
+    data_concluido DATE,                         -- Data de conclusão do pedido
+    cancelado BOOLEAN DEFAULT FALSE,             -- Status de cancelamento do pedido
+    finalizado BOOLEAN DEFAULT FALSE,            -- Status de finalização do pedido
+    valor_total NUMERIC(10, 2),                  -- Valor total do pedido
+    CONSTRAINT fk_cliente_pedido FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE SET NULL
+);
+
+-- Tabela de Itens do Pedido
+CREATE TABLE pedidos_itens (
+    pedido_id INT NOT NULL,                      -- Relacionamento com o pedido
+    produto_id INT NOT NULL,                     -- Relacionamento com o produto
+    quantidade INT NOT NULL,                     -- Quantidade do produto no pedido
+    valor_unitario NUMERIC(10, 2) NOT NULL,       -- Preço unitário do produto no pedido
+    valor_total NUMERIC(10, 2) NOT NULL,         -- Valor total (quantidade * valor_unitario)
+    PRIMARY KEY (pedido_id, produto_id),         -- Chave primária composta
+    CONSTRAINT fk_pedido_itens FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE,
+    CONSTRAINT fk_produto_itens FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE
+);
+
+-- Tabela de Movimentações de Caixa
+CREATE TABLE caixa_pedidos (
+    id SERIAL PRIMARY KEY,                      -- ID único da movimentação
+    pedido_id INT NOT NULL,                      -- Relacionamento com o pedido
+    pago NUMERIC(10, 2),                         -- Valor do pagamento feito pelo cliente
+    pagar NUMERIC(10, 2),                        -- Valor do pedido
+    troco NUMERIC(10,2),                         -- Valor do troco se tiver
+    forma_pagamento VARCHAR(20),                 -- Forma de pagamento (cartão, dinheiro, etc)
+    CONSTRAINT fk_pedido_caixa FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE
+);
