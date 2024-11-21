@@ -2,13 +2,15 @@
 using GerenciadorProdutoECliente.Repositories;
 using GerenciadorProdutoECliente.Services;
 using GerenciadorProdutoECliente.Utils;
+using MaterialSkin;
+using MaterialSkin.Controls;
 using System;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace GerenciadorProdutoECliente.Forms
 {
-    public partial class FormOrder : Form
+    public partial class FormOrder : MaterialForm
     {
         private OrderService orderService;
         private Order currentOrder;
@@ -17,6 +19,7 @@ namespace GerenciadorProdutoECliente.Forms
         public FormOrder()
         {
             InitializeComponent();
+            InitializeMaterialSkin();
 
             // Inicializando os repositórios
             orderService = new OrderService(
@@ -32,6 +35,13 @@ namespace GerenciadorProdutoECliente.Forms
             DisableAllControls();
 
             btnOrder.Enabled = false;
+        }
+        private void InitializeMaterialSkin()
+        {
+            // Cria o materialSkinManager e define o tema
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT; // Ou LIGHT
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue600, Primary.Blue700, Primary.Blue500, Accent.Blue400, TextShade.WHITE);
         }
 
         // Desabilita todos os controles, exceto a busca de cliente
