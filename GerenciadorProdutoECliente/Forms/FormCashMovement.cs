@@ -3,6 +3,7 @@ using GerenciadorProdutoECliente.Models;
 using GerenciadorProdutoECliente.Repositories;
 using GerenciadorProdutoECliente.Services;
 using GerenciadorProdutoECliente.Utils;
+using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Windows.Forms;
 
@@ -108,6 +109,21 @@ namespace GerenciadorProdutoECliente.Forms
             }
         }
 
+        // Método para diminuir a quantidade de produto no estoque após finalizar o pagamento
+        private void DeacreaseProductStock()
+        {
+            //Instancia OrderService para pegar o ID do pedido e localizar os produtos pelo Id
+            Order order = _orderService.GetOrderById(_orderId);
+
+            //Instancia ProductService para poder usar o método de tirar produtos do estoque a partir do ID
+            ProductService _productService = new ProductService( new ProductRepository());
+
+            foreach (OrderItem item in order.OrderItems) // Percorre todos os produtos na lista
+            {
+                _productService.DecreaseProductStock(item.ProductId, item.Quantity); // Diminui o produto no estoque
+            }
+        }
+
         private void btnFinalizePayment_Click(object sender, EventArgs e)
         {
             // Verificar se o valor pago foi informado corretamente
@@ -148,6 +164,9 @@ namespace GerenciadorProdutoECliente.Forms
                 {
                     MessageBox.Show("Erro ao finalizar o pedido.");
                 }
+
+                // Método para diminuir a quantidade de produto no estoque após finalizar o pagamento
+                DeacreaseProductStock(); 
 
                 OnOrderCompleted(paidAmount);
             }
