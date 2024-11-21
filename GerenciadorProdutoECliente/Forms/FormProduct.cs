@@ -1,22 +1,36 @@
 ﻿using GerenciadorProdutoECliente.Models;
 using GerenciadorProdutoECliente.Repositories;
 using GerenciadorProdutoECliente.Services;
+using MaterialSkin;
+using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace GerenciadorProdutoECliente.Forms
 {
-    public partial class FormProduct : Form
+    public partial class FormProduct : MaterialForm
     {
         private readonly ProductService _productService;
         private int ProductIdSave { get; set; }
         public FormProduct()
         {
             InitializeComponent();
+            InitializeMaterialSkin();
             _productService = new ProductService(new ProductRepository());
             ProductIdSave = 0;
             btnProduct.Enabled = false;
+
+            // Remove o título da janela
+            this.Text = ""; // Deixa o título vazio
+
+        }
+        private void InitializeMaterialSkin()
+        {
+            // Cria o materialSkinManager e define o tema
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT; // Ou LIGHT
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue600, Primary.Blue700, Primary.Blue500, Accent.Blue400, TextShade.WHITE);
         }
         private void ClearFields()
         {

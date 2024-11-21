@@ -418,7 +418,7 @@
             // btnNew
             // 
             this.btnNew.Depth = 0;
-            this.btnNew.Location = new System.Drawing.Point(507, 300);
+            this.btnNew.Location = new System.Drawing.Point(503, 303);
             this.btnNew.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnNew.Name = "btnNew";
             this.btnNew.Primary = true;
@@ -431,7 +431,7 @@
             // btnUpdate
             // 
             this.btnUpdate.Depth = 0;
-            this.btnUpdate.Location = new System.Drawing.Point(602, 299);
+            this.btnUpdate.Location = new System.Drawing.Point(602, 303);
             this.btnUpdate.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Primary = true;
@@ -444,7 +444,7 @@
             // btnDelete
             // 
             this.btnDelete.Depth = 0;
-            this.btnDelete.Location = new System.Drawing.Point(701, 300);
+            this.btnDelete.Location = new System.Drawing.Point(701, 303);
             this.btnDelete.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Primary = true;
@@ -512,7 +512,7 @@
             // btnProduct
             // 
             this.btnProduct.Depth = 0;
-            this.btnProduct.Location = new System.Drawing.Point(136, 33);
+            this.btnProduct.Location = new System.Drawing.Point(129, 33);
             this.btnProduct.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnProduct.Name = "btnProduct";
             this.btnProduct.Primary = true;
@@ -525,7 +525,7 @@
             // btnOrder
             // 
             this.btnOrder.Depth = 0;
-            this.btnOrder.Location = new System.Drawing.Point(234, 33);
+            this.btnOrder.Location = new System.Drawing.Point(210, 33);
             this.btnOrder.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnOrder.Name = "btnOrder";
             this.btnOrder.Primary = true;

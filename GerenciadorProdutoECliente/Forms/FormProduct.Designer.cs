@@ -28,120 +28,186 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblProduct = new System.Windows.Forms.Label();
-            this.lblStock = new System.Windows.Forms.Label();
-            this.lblPrice = new System.Windows.Forms.Label();
-            this.lblDescription = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.txtStock = new System.Windows.Forms.TextBox();
-            this.txtPrice = new System.Windows.Forms.TextBox();
-            this.txtDescription = new System.Windows.Forms.TextBox();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.lblSearch = new System.Windows.Forms.Label();
-            this.btnNew = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnOrder = new System.Windows.Forms.Button();
-            this.btnProduct = new System.Windows.Forms.Button();
-            this.btnClient = new System.Windows.Forms.Button();
+            this.lblProduct = new MaterialSkin.Controls.MaterialLabel();
+            this.lblStock = new MaterialSkin.Controls.MaterialLabel();
+            this.lblPrice = new MaterialSkin.Controls.MaterialLabel();
+            this.lblDescription = new MaterialSkin.Controls.MaterialLabel();
+            this.lblSearch = new MaterialSkin.Controls.MaterialLabel();
+            this.txtName = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtStock = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtPrice = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtDescription = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtSearch = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.btnSearch = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnNew = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnUpdate = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnDelete = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnOrder = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnProduct = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnClient = new MaterialSkin.Controls.MaterialRaisedButton();
             this.SuspendLayout();
             // 
             // lblProduct
             // 
             this.lblProduct.AutoSize = true;
-            this.lblProduct.Location = new System.Drawing.Point(37, 170);
+            this.lblProduct.Depth = 0;
+            this.lblProduct.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblProduct.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblProduct.Location = new System.Drawing.Point(40, 174);
+            this.lblProduct.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblProduct.Name = "lblProduct";
-            this.lblProduct.Size = new System.Drawing.Size(90, 13);
+            this.lblProduct.Size = new System.Drawing.Size(128, 19);
             this.lblProduct.TabIndex = 0;
             this.lblProduct.Text = "Nome do Produto";
             // 
             // lblStock
             // 
             this.lblStock.AutoSize = true;
-            this.lblStock.Location = new System.Drawing.Point(37, 197);
+            this.lblStock.Depth = 0;
+            this.lblStock.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblStock.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblStock.Location = new System.Drawing.Point(266, 174);
+            this.lblStock.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblStock.Name = "lblStock";
-            this.lblStock.Size = new System.Drawing.Size(121, 13);
+            this.lblStock.Size = new System.Drawing.Size(169, 19);
             this.lblStock.TabIndex = 1;
             this.lblStock.Text = "Quantidade em Estoque";
             // 
             // lblPrice
             // 
             this.lblPrice.AutoSize = true;
-            this.lblPrice.Location = new System.Drawing.Point(37, 227);
+            this.lblPrice.Depth = 0;
+            this.lblPrice.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblPrice.Location = new System.Drawing.Point(40, 237);
+            this.lblPrice.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(74, 13);
+            this.lblPrice.Size = new System.Drawing.Size(105, 19);
             this.lblPrice.TabIndex = 2;
             this.lblPrice.Text = "Preço Unitário";
             // 
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(37, 255);
+            this.lblDescription.Depth = 0;
+            this.lblDescription.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblDescription.Location = new System.Drawing.Point(266, 237);
+            this.lblDescription.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(110, 13);
+            this.lblDescription.Size = new System.Drawing.Size(155, 19);
             this.lblDescription.TabIndex = 3;
             this.lblDescription.Text = "Descrição do Produto";
             // 
+            // lblSearch
+            // 
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Depth = 0;
+            this.lblSearch.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblSearch.Location = new System.Drawing.Point(209, 83);
+            this.lblSearch.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(302, 19);
+            this.lblSearch.TabIndex = 10;
+            this.lblSearch.Text = "Insira o Nome ou ID do produto para buscar";
+            // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(181, 167);
+            this.txtName.Depth = 0;
+            this.txtName.Hint = "";
+            this.txtName.Location = new System.Drawing.Point(40, 192);
+            this.txtName.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(203, 20);
+            this.txtName.PasswordChar = '\0';
+            this.txtName.SelectedText = "";
+            this.txtName.SelectionLength = 0;
+            this.txtName.SelectionStart = 0;
+            this.txtName.Size = new System.Drawing.Size(203, 23);
             this.txtName.TabIndex = 4;
+            this.txtName.UseSystemPasswordChar = false;
             // 
             // txtStock
             // 
-            this.txtStock.Location = new System.Drawing.Point(181, 197);
+            this.txtStock.Depth = 0;
+            this.txtStock.Hint = "";
+            this.txtStock.Location = new System.Drawing.Point(266, 192);
+            this.txtStock.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtStock.Name = "txtStock";
-            this.txtStock.Size = new System.Drawing.Size(84, 20);
+            this.txtStock.PasswordChar = '\0';
+            this.txtStock.SelectedText = "";
+            this.txtStock.SelectionLength = 0;
+            this.txtStock.SelectionStart = 0;
+            this.txtStock.Size = new System.Drawing.Size(203, 23);
             this.txtStock.TabIndex = 5;
+            this.txtStock.UseSystemPasswordChar = false;
             // 
             // txtPrice
             // 
-            this.txtPrice.Location = new System.Drawing.Point(181, 224);
+            this.txtPrice.Depth = 0;
+            this.txtPrice.Hint = "";
+            this.txtPrice.Location = new System.Drawing.Point(40, 256);
+            this.txtPrice.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPrice.Name = "txtPrice";
-            this.txtPrice.Size = new System.Drawing.Size(84, 20);
+            this.txtPrice.PasswordChar = '\0';
+            this.txtPrice.SelectedText = "";
+            this.txtPrice.SelectionLength = 0;
+            this.txtPrice.SelectionStart = 0;
+            this.txtPrice.Size = new System.Drawing.Size(203, 23);
             this.txtPrice.TabIndex = 6;
+            this.txtPrice.UseSystemPasswordChar = false;
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(181, 255);
+            this.txtDescription.Depth = 0;
+            this.txtDescription.Hint = "";
+            this.txtDescription.Location = new System.Drawing.Point(266, 256);
+            this.txtDescription.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(203, 20);
+            this.txtDescription.PasswordChar = '\0';
+            this.txtDescription.SelectedText = "";
+            this.txtDescription.SelectionLength = 0;
+            this.txtDescription.SelectionStart = 0;
+            this.txtDescription.Size = new System.Drawing.Size(203, 23);
             this.txtDescription.TabIndex = 7;
+            this.txtDescription.UseSystemPasswordChar = false;
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(212, 99);
+            this.txtSearch.Depth = 0;
+            this.txtSearch.Hint = "";
+            this.txtSearch.Location = new System.Drawing.Point(209, 99);
+            this.txtSearch.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(264, 20);
+            this.txtSearch.PasswordChar = '\0';
+            this.txtSearch.SelectedText = "";
+            this.txtSearch.SelectionLength = 0;
+            this.txtSearch.SelectionStart = 0;
+            this.txtSearch.Size = new System.Drawing.Size(302, 23);
             this.txtSearch.TabIndex = 8;
+            this.txtSearch.UseSystemPasswordChar = false;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(499, 95);
+            this.btnSearch.Depth = 0;
+            this.btnSearch.Location = new System.Drawing.Point(517, 99);
+            this.btnSearch.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.Primary = true;
+            this.btnSearch.Size = new System.Drawing.Size(101, 23);
             this.btnSearch.TabIndex = 9;
             this.btnSearch.Text = "Buscar";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // lblSearch
-            // 
-            this.lblSearch.AutoSize = true;
-            this.lblSearch.Location = new System.Drawing.Point(209, 83);
-            this.lblSearch.Name = "lblSearch";
-            this.lblSearch.Size = new System.Drawing.Size(183, 13);
-            this.lblSearch.TabIndex = 10;
-            this.lblSearch.Text = "Insira o nome do produto para buscar";
-            // 
             // btnNew
             // 
+            this.btnNew.Depth = 0;
             this.btnNew.Location = new System.Drawing.Point(40, 310);
+            this.btnNew.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(75, 23);
+            this.btnNew.Primary = true;
+            this.btnNew.Size = new System.Drawing.Size(102, 23);
             this.btnNew.TabIndex = 11;
             this.btnNew.Text = "Novo";
             this.btnNew.UseVisualStyleBackColor = true;
@@ -149,9 +215,12 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(135, 310);
+            this.btnUpdate.Depth = 0;
+            this.btnUpdate.Location = new System.Drawing.Point(148, 310);
+            this.btnUpdate.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.Primary = true;
+            this.btnUpdate.Size = new System.Drawing.Size(101, 23);
             this.btnUpdate.TabIndex = 12;
             this.btnUpdate.Text = "Atualizar";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -159,9 +228,12 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(229, 310);
+            this.btnDelete.Depth = 0;
+            this.btnDelete.Location = new System.Drawing.Point(255, 310);
+            this.btnDelete.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Primary = true;
+            this.btnDelete.Size = new System.Drawing.Size(101, 23);
             this.btnDelete.TabIndex = 13;
             this.btnDelete.Text = "Deletar";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -169,8 +241,11 @@
             // 
             // btnOrder
             // 
-            this.btnOrder.Location = new System.Drawing.Point(233, 29);
+            this.btnOrder.Depth = 0;
+            this.btnOrder.Location = new System.Drawing.Point(209, 33);
+            this.btnOrder.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnOrder.Name = "btnOrder";
+            this.btnOrder.Primary = true;
             this.btnOrder.Size = new System.Drawing.Size(75, 23);
             this.btnOrder.TabIndex = 35;
             this.btnOrder.Text = "Pedido";
@@ -179,8 +254,11 @@
             // 
             // btnProduct
             // 
-            this.btnProduct.Location = new System.Drawing.Point(135, 29);
+            this.btnProduct.Depth = 0;
+            this.btnProduct.Location = new System.Drawing.Point(128, 33);
+            this.btnProduct.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnProduct.Name = "btnProduct";
+            this.btnProduct.Primary = true;
             this.btnProduct.Size = new System.Drawing.Size(75, 23);
             this.btnProduct.TabIndex = 34;
             this.btnProduct.Text = "Produto";
@@ -188,8 +266,11 @@
             // 
             // btnClient
             // 
-            this.btnClient.Location = new System.Drawing.Point(47, 29);
+            this.btnClient.Depth = 0;
+            this.btnClient.Location = new System.Drawing.Point(47, 33);
+            this.btnClient.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnClient.Name = "btnClient";
+            this.btnClient.Primary = true;
             this.btnClient.Size = new System.Drawing.Size(75, 23);
             this.btnClient.TabIndex = 33;
             this.btnClient.Text = "Cliente";
@@ -227,22 +308,24 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblProduct;
-        private System.Windows.Forms.Label lblStock;
-        private System.Windows.Forms.Label lblPrice;
-        private System.Windows.Forms.Label lblDescription;
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TextBox txtStock;
-        private System.Windows.Forms.TextBox txtPrice;
-        private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Label lblSearch;
-        private System.Windows.Forms.Button btnNew;
-        private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnOrder;
-        private System.Windows.Forms.Button btnProduct;
-        private System.Windows.Forms.Button btnClient;
+        // Definindo os controles MaterialSkin
+        private MaterialSkin.Controls.MaterialLabel lblProduct;
+        private MaterialSkin.Controls.MaterialLabel lblStock;
+        private MaterialSkin.Controls.MaterialLabel lblPrice;
+        private MaterialSkin.Controls.MaterialLabel lblDescription;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtName;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtStock;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtPrice;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtDescription;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtSearch;
+        private MaterialSkin.Controls.MaterialRaisedButton btnSearch;
+        private MaterialSkin.Controls.MaterialLabel lblSearch;
+        private MaterialSkin.Controls.MaterialRaisedButton btnNew;
+        private MaterialSkin.Controls.MaterialRaisedButton btnUpdate;
+        private MaterialSkin.Controls.MaterialRaisedButton btnDelete;
+        private MaterialSkin.Controls.MaterialRaisedButton btnOrder;
+        private MaterialSkin.Controls.MaterialRaisedButton btnProduct;
+        private MaterialSkin.Controls.MaterialRaisedButton btnClient;
+
     }
 }
