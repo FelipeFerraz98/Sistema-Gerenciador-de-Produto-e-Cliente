@@ -3,13 +3,15 @@ using GerenciadorProdutoECliente.Models;
 using GerenciadorProdutoECliente.Repositories;
 using GerenciadorProdutoECliente.Services;
 using GerenciadorProdutoECliente.Utils;
+using MaterialSkin;
+using MaterialSkin.Controls;
 using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Windows.Forms;
 
 namespace GerenciadorProdutoECliente.Forms
 {
-    public partial class FormCashMovement : Form
+    public partial class FormCashMovement : MaterialForm
     {
         private readonly CashMovementService _cashMovementService;  // Serviço para manipular a movimentação de caixa
         private readonly OrderService _orderService;  // Serviço para manipular o pedido
@@ -20,6 +22,7 @@ namespace GerenciadorProdutoECliente.Forms
         public FormCashMovement(int orderId)
         {
             InitializeComponent();
+            InitializeMaterialSkin();
             _cashMovementService = new CashMovementService(new CashMovementRepository());  // Inicialização do serviço de movimentação de caixa
             _orderService = new OrderService(
                 new OrderRepository(),
@@ -27,6 +30,16 @@ namespace GerenciadorProdutoECliente.Forms
                 new ClientService(new ClientRepository()),
                 new ProductService(new ProductRepository()));  // Inicialização do serviço de pedido
             _orderId = orderId;  // Armazenar o ID do pedido
+
+            // Remove o título da janela
+            this.Text = ""; // Deixa o título vazio
+        }
+        private void InitializeMaterialSkin()
+        {
+            // Cria o materialSkinManager e define o tema
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT; // Ou LIGHT
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue600, Primary.Blue700, Primary.Blue500, Accent.Blue400, TextShade.WHITE);
         }
 
         private void FormCashMovement_Load(object sender, EventArgs e)

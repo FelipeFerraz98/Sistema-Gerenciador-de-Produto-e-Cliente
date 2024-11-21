@@ -28,88 +28,120 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblOrderId = new System.Windows.Forms.Label();
-            this.lblAmountDue = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtPaid = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label1 = new MaterialSkin.Controls.MaterialLabel();
+            this.lblOrderId = new MaterialSkin.Controls.MaterialLabel();
+            this.lblAmountDue = new MaterialSkin.Controls.MaterialLabel();
+            this.label2 = new MaterialSkin.Controls.MaterialLabel();
+            this.label3 = new MaterialSkin.Controls.MaterialLabel();
+            this.txtPaid = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.label4 = new MaterialSkin.Controls.MaterialLabel();
             this.cmbPaymentMethod = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblChange = new System.Windows.Forms.Label();
-            this.btnFinalizePayment = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblDataOrder = new System.Windows.Forms.Label();
+            this.label5 = new MaterialSkin.Controls.MaterialLabel();
+            this.lblChange = new MaterialSkin.Controls.MaterialLabel();
+            this.btnFinalizePayment = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.label6 = new MaterialSkin.Controls.MaterialLabel();
+            this.lblDataOrder = new MaterialSkin.Controls.MaterialLabel();
             this.lstOrderItems = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 36);
+            this.label1.Depth = 0;
+            this.label1.Font = new System.Drawing.Font("Roboto", 11F);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label1.Location = new System.Drawing.Point(32, 72);
+            this.label1.MouseState = MaterialSkin.MouseState.HOVER;
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.Size = new System.Drawing.Size(77, 19);
             this.label1.TabIndex = 0;
             this.label1.Text = "Pedido ID:";
             // 
             // lblOrderId
             // 
             this.lblOrderId.AutoSize = true;
-            this.lblOrderId.Location = new System.Drawing.Point(96, 36);
+            this.lblOrderId.Depth = 0;
+            this.lblOrderId.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblOrderId.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblOrderId.Location = new System.Drawing.Point(105, 72);
+            this.lblOrderId.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblOrderId.Name = "lblOrderId";
-            this.lblOrderId.Size = new System.Drawing.Size(13, 13);
+            this.lblOrderId.Size = new System.Drawing.Size(17, 19);
             this.lblOrderId.TabIndex = 1;
             this.lblOrderId.Text = "0";
             // 
             // lblAmountDue
             // 
             this.lblAmountDue.AutoSize = true;
-            this.lblAmountDue.Location = new System.Drawing.Point(112, 61);
+            this.lblAmountDue.Depth = 0;
+            this.lblAmountDue.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblAmountDue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblAmountDue.Location = new System.Drawing.Point(112, 97);
+            this.lblAmountDue.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblAmountDue.Name = "lblAmountDue";
-            this.lblAmountDue.Size = new System.Drawing.Size(13, 13);
+            this.lblAmountDue.Size = new System.Drawing.Size(17, 19);
             this.lblAmountDue.TabIndex = 2;
             this.lblAmountDue.Text = "0";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 61);
+            this.label2.Depth = 0;
+            this.label2.Font = new System.Drawing.Font("Roboto", 11F);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label2.Location = new System.Drawing.Point(32, 97);
+            this.label2.MouseState = MaterialSkin.MouseState.HOVER;
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 13);
+            this.label2.Size = new System.Drawing.Size(103, 19);
             this.label2.TabIndex = 3;
             this.label2.Text = "Valor a Pagar:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(35, 96);
+            this.label3.Depth = 0;
+            this.label3.Font = new System.Drawing.Font("Roboto", 11F);
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label3.Location = new System.Drawing.Point(35, 132);
+            this.label3.MouseState = MaterialSkin.MouseState.HOVER;
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 13);
+            this.label3.Size = new System.Drawing.Size(87, 19);
             this.label3.TabIndex = 4;
             this.label3.Text = "Valor Pago:";
             // 
             // txtPaid
             // 
-            this.txtPaid.Location = new System.Drawing.Point(103, 93);
+            this.txtPaid.Depth = 0;
+            this.txtPaid.Hint = "";
+            this.txtPaid.Location = new System.Drawing.Point(35, 151);
+            this.txtPaid.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtPaid.Name = "txtPaid";
-            this.txtPaid.Size = new System.Drawing.Size(139, 20);
+            this.txtPaid.PasswordChar = '\0';
+            this.txtPaid.SelectedText = "";
+            this.txtPaid.SelectionLength = 0;
+            this.txtPaid.SelectionStart = 0;
+            this.txtPaid.Size = new System.Drawing.Size(139, 23);
             this.txtPaid.TabIndex = 5;
+            this.txtPaid.UseSystemPasswordChar = false;
             this.txtPaid.TextChanged += new System.EventHandler(this.txtPaid_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(290, 96);
+            this.label4.Depth = 0;
+            this.label4.Font = new System.Drawing.Font("Roboto", 11F);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label4.Location = new System.Drawing.Point(249, 134);
+            this.label4.MouseState = MaterialSkin.MouseState.HOVER;
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 13);
+            this.label4.Size = new System.Drawing.Size(152, 19);
             this.label4.TabIndex = 6;
             this.label4.Text = "Forma de Pagamento";
             // 
             // cmbPaymentMethod
             // 
             this.cmbPaymentMethod.FormattingEnabled = true;
-            this.cmbPaymentMethod.Location = new System.Drawing.Point(405, 96);
+            this.cmbPaymentMethod.Location = new System.Drawing.Point(407, 134);
             this.cmbPaymentMethod.Name = "cmbPaymentMethod";
             this.cmbPaymentMethod.Size = new System.Drawing.Size(121, 21);
             this.cmbPaymentMethod.TabIndex = 7;
@@ -117,26 +149,37 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(35, 138);
+            this.label5.Depth = 0;
+            this.label5.Font = new System.Drawing.Font("Roboto", 11F);
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label5.Location = new System.Drawing.Point(35, 180);
+            this.label5.MouseState = MaterialSkin.MouseState.HOVER;
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.Size = new System.Drawing.Size(57, 19);
             this.label5.TabIndex = 8;
             this.label5.Text = "Troco: ";
             // 
             // lblChange
             // 
             this.lblChange.AutoSize = true;
-            this.lblChange.Location = new System.Drawing.Point(83, 138);
+            this.lblChange.Depth = 0;
+            this.lblChange.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblChange.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblChange.Location = new System.Drawing.Point(83, 180);
+            this.lblChange.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblChange.Name = "lblChange";
-            this.lblChange.Size = new System.Drawing.Size(37, 13);
+            this.lblChange.Size = new System.Drawing.Size(57, 19);
             this.lblChange.TabIndex = 9;
-            this.lblChange.Text = "$ 0.00";
+            this.lblChange.Text = "R$ 0,00";
             // 
             // btnFinalizePayment
             // 
-            this.btnFinalizePayment.Location = new System.Drawing.Point(35, 294);
+            this.btnFinalizePayment.Depth = 0;
+            this.btnFinalizePayment.Location = new System.Drawing.Point(35, 330);
+            this.btnFinalizePayment.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnFinalizePayment.Name = "btnFinalizePayment";
-            this.btnFinalizePayment.Size = new System.Drawing.Size(139, 23);
+            this.btnFinalizePayment.Primary = true;
+            this.btnFinalizePayment.Size = new System.Drawing.Size(195, 23);
             this.btnFinalizePayment.TabIndex = 10;
             this.btnFinalizePayment.Text = "Finalizar Pagamento";
             this.btnFinalizePayment.UseVisualStyleBackColor = true;
@@ -145,25 +188,33 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(249, 36);
+            this.label6.Depth = 0;
+            this.label6.Font = new System.Drawing.Font("Roboto", 11F);
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label6.Location = new System.Drawing.Point(249, 72);
+            this.label6.MouseState = MaterialSkin.MouseState.HOVER;
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 13);
+            this.label6.Size = new System.Drawing.Size(115, 19);
             this.label6.TabIndex = 11;
             this.label6.Text = "Data do Pedido:";
             // 
             // lblDataOrder
             // 
             this.lblDataOrder.AutoSize = true;
-            this.lblDataOrder.Location = new System.Drawing.Point(340, 36);
+            this.lblDataOrder.Depth = 0;
+            this.lblDataOrder.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblDataOrder.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblDataOrder.Location = new System.Drawing.Point(362, 72);
+            this.lblDataOrder.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblDataOrder.Name = "lblDataOrder";
-            this.lblDataOrder.Size = new System.Drawing.Size(13, 13);
+            this.lblDataOrder.Size = new System.Drawing.Size(17, 19);
             this.lblDataOrder.TabIndex = 12;
             this.lblDataOrder.Text = "0";
             // 
             // lstOrderItems
             // 
             this.lstOrderItems.FormattingEnabled = true;
-            this.lstOrderItems.Location = new System.Drawing.Point(35, 174);
+            this.lstOrderItems.Location = new System.Drawing.Point(35, 210);
             this.lstOrderItems.Name = "lstOrderItems";
             this.lstOrderItems.Size = new System.Drawing.Size(550, 108);
             this.lstOrderItems.TabIndex = 13;
@@ -197,19 +248,22 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblOrderId;
-        private System.Windows.Forms.Label lblAmountDue;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtPaid;
-        private System.Windows.Forms.Label label4;
+        // Definindo os controles MaterialSkin
+        private MaterialSkin.Controls.MaterialLabel label1;
+        private MaterialSkin.Controls.MaterialLabel lblOrderId;
+        private MaterialSkin.Controls.MaterialLabel lblAmountDue;
+        private MaterialSkin.Controls.MaterialLabel label2;
+        private MaterialSkin.Controls.MaterialLabel label3;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtPaid;
+        private MaterialSkin.Controls.MaterialLabel label4;
         private System.Windows.Forms.ComboBox cmbPaymentMethod;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label lblChange;
-        private System.Windows.Forms.Button btnFinalizePayment;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lblDataOrder;
+        private MaterialSkin.Controls.MaterialLabel label5;
+        private MaterialSkin.Controls.MaterialLabel lblChange;
+        private MaterialSkin.Controls.MaterialRaisedButton btnFinalizePayment;
+        private MaterialSkin.Controls.MaterialLabel label6;
+        private MaterialSkin.Controls.MaterialLabel lblDataOrder;
         private System.Windows.Forms.ListBox lstOrderItems;
+
+
     }
 }
