@@ -142,18 +142,22 @@ A geração do Invoice é feita usando a biblioteca **iTextSharp.LGPLv2.Core**, 
 O sistema foi desenvolvido utilizando algumas bibliotecas open source, que são livres para uso comercial. As bibliotecas utilizadas são:
 
 ### 6.1. **Npgsql**
+- **Versão**: 4.1.13
 - **Descrição**: Npgsql é uma biblioteca ADO.NET que permite a conexão com o PostgreSQL a partir de aplicativos .NET. Ela foi utilizada no sistema para realizar a conexão com o banco de dados PostgreSQL.
 - **Licença**: Open source e livre para uso comercial.
 
 ### 6.2. **Material Skin**
+- **Versão**: 0.2.1
 - **Descrição**: Material Skin é uma biblioteca open source para a criação de interfaces gráficas modernas e elegantes com o estilo do Material Design. Foi utilizada para criar a interface do usuário no sistema.
 - **Licença**: Open source e livre para uso comercial.
 
 ### 6.3. **iTextSharp.LGPLv2.Core**
+- **Versão**: 1.7.1
 - **Descrição**: iTextSharp é uma biblioteca open source para criar e manipular documentos PDF. Ela foi utilizada para gerar o relatório de **Invoice** (fatura) no sistema.
 - **Licença**: LGPLv2 (open source e livre para uso comercial).
 
 ### 6.4. **Newtonsoft.Json**
+- **Versão**: 11.0.1
 - **Descrição**: Newtonsoft.Json é uma biblioteca para manipulação de JSON em .NET. Ela foi utilizada para lidar com a serialização e desserialização de dados JSON, especialmente na integração com a API de CEP.
 - **Licença**: Open source e livre para uso comercial.
 
