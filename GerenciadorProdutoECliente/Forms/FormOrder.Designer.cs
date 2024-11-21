@@ -359,7 +359,7 @@ namespace GerenciadorProdutoECliente.Forms
             this.lblTotalAmount.Depth = 0;
             this.lblTotalAmount.Font = new System.Drawing.Font("Roboto", 11F);
             this.lblTotalAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblTotalAmount.Location = new System.Drawing.Point(121, 383);
+            this.lblTotalAmount.Location = new System.Drawing.Point(144, 383);
             this.lblTotalAmount.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblTotalAmount.Name = "lblTotalAmount";
             this.lblTotalAmount.Size = new System.Drawing.Size(57, 19);

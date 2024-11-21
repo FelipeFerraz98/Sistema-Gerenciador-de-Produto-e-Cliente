@@ -86,7 +86,7 @@ namespace GerenciadorProdutoECliente.Utils
             Paragraph clientInfo = new Paragraph($"Cliente: {client.Name} Portador do CPF/CNPJ: {cpfCnpj}\n" +
                                            $"Endereço: {client.Address.Street}, {client.Address.Number} -" +
                                            $" {client.Address.Neighborhood}\n {client.Address.City}" +
-                                           $" - {client.Address.State} CEP {zipCode}\n" +
+                                           $" - {client.Address.State} - CEP {zipCode}\n" +
                                            $"Telefone: {phone}\n\n", textFont)
             {
                 Alignment = Element.ALIGN_LEFT // Alinha o texto à esquerda

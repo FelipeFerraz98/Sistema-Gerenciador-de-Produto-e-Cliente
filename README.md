@@ -76,6 +76,9 @@ O FormClient é o formulário utilizado para manipular os dados dos clientes, in
 Abaixo a imagem do FormClient.
 
 ![Tela de Cadastro de Cliente](images/FormClient.png)
+![Tela de Cadastro de Cliente](images/FormClient2.png)
+![Tela de Cadastro de Cliente](images/FormClient3.png)
+Os dados utilizados no Invoice são fictícios e foram gerados pelo site [4devs](https://www.4devs.com.br/)
 
 ### 3.2. FormProduct
 
@@ -90,6 +93,8 @@ Abaixo a imagem do FormProduct.
 O FormOrder permite criar e gerenciar pedidos. É possível adicionar produtos ao pedido, calcular o valor total, e realizar a finalização da transação. Abaixo vai a imagem do FormOrder.
 
 ![Tela de Cadastro de Pedidos](images/FormOrder.png)
+![Tela de Cadastro de Pedidos](images/FormOrder2.png)
+Os dados utilizados no Invoice são fictícios e foram gerados pelo site [4devs](https://www.4devs.com.br/)
 
 ### 3.4. FormCashMovement
 
@@ -119,11 +124,13 @@ A modelagem do banco de dados foi criada com base nas necessidades do sistema, c
 
 ## 5. Relatórios - Invoice (Relatório do Pedido)
 
-O Invoice (ou fatura) é um relatório gerado em PDF para cada pedido realizado no sistema. Ele contém as informações do cliente, os produtos comprados, o valor total do pedido e os detalhes de pagamento. Esse relatório pode ser impresso ou enviado ao cliente.
+O Invoice (ou Fatura) é um relatório gerado automaticamente em formato PDF para cada pedido realizado no sistema, após a confirmação do pagamento. Quando o usuário clica em "Finalizar pagamento" no formulário FormCashMovement, o sistema gera o Invoice e o abre automaticamente.
+
+Este relatório contém informações detalhadas sobre o cliente, os produtos adquiridos, o valor total do pedido, bem como os dados do pagamento. O Invoice pode ser impresso ou enviado diretamente ao cliente, servindo como comprovante oficial da transação realizada.
 
 Abaixo a imagem do exemplo de Invoice.
 
-![Exemplo de Invoice](images/InvoiceExemplo.png)
+![Exemplo de Invoice](images/Invoice.png)
 Os dados utilizados no Invoice são fictícios e foram gerados pelo site [4devs](https://www.4devs.com.br/)
 
 A geração do Invoice é feita usando a biblioteca **iTextSharp.LGPLv2.Core**, que é open source e livre para uso comercial. A biblioteca permite a criação de documentos PDF de maneira eficiente e com grande flexibilidade.
