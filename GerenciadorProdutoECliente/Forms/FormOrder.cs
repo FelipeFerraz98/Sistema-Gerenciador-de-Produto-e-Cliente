@@ -108,9 +108,13 @@ namespace GerenciadorProdutoECliente.Forms
                 MessageBox.Show("Por favor, insira o CPF ou CNPJ.");
                 return;
             }
+            clientIdentifier = clientIdentifier.Trim();
+
+            // Remove qualquer caractere que não seja número (incluindo o '-')
+            clientIdentifier = new string(clientIdentifier.Where(char.IsDigit).ToArray());
 
             // Utiliza o método de busca do OrderService
-            Client client = orderService.GetClientByIdentifier(clientIdentifier);
+            Client client = orderService.GetClientByCpfOrCnpj(clientIdentifier);
 
             if (client != null)
             {

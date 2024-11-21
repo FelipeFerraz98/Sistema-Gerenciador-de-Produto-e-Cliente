@@ -49,6 +49,11 @@ namespace GerenciadorProdutoECliente.Services
             return _clientRepository.SearchById(Id);
         }
 
+        public Client GetClientByCpfOrCnpj(string cpfCnpj)
+        {
+            return _clientRepository.GetClientByCpfOrCnpj(cpfCnpj);
+        }
+
         // Método para buscar cliente por identificador (nome, CPF ou CNPJ)
         public List<Client> GetClientByIdentifier(string identifier)
         {

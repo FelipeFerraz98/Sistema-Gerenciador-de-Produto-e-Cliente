@@ -25,11 +25,9 @@ namespace GerenciadorProdutoECliente.Services
         }
 
         // Método para buscar o cliente e validar se existe
-        public Client GetClientByIdentifier(string identifier)
+        public Client GetClientByCpfOrCnpj(string cpfCnpj)
         {
-            List<Client> selectedClient = clientService.GetClientByIdentifier(identifier);
-            Client client = selectedClient[0];
-            return client;
+            return clientService.GetClientByCpfOrCnpj(cpfCnpj);
         }
 
         // Método para buscar o produto por ID ou nome

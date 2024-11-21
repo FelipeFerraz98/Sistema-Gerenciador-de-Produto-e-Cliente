@@ -40,18 +40,18 @@ namespace GerenciadorProdutoECliente.Repositories
                     INSERT INTO enderecos (cep, rua, numero, complemento, bairro, cidade, uf, cliente_id) 
                     VALUES (@ZipCode, @Street, @Number, @Complement, @Neighborhood, @City, @State, @ClientId);";
 
-                     using (NpgsqlCommand addressCommand = new NpgsqlCommand(addressQuery, connection))
-                     {
-                            addressCommand.Parameters.AddWithValue("@ZipCode", client.Address.ZipCode);
-                            addressCommand.Parameters.AddWithValue("@Street", client.Address.Street);
-                            addressCommand.Parameters.AddWithValue("@Number", client.Address.Number);
-                            addressCommand.Parameters.AddWithValue("@Complement", client.Address.Complement ?? (object)DBNull.Value);
-                            addressCommand.Parameters.AddWithValue("@Neighborhood", client.Address.Neighborhood);
-                            addressCommand.Parameters.AddWithValue("@City", client.Address.City);
-                            addressCommand.Parameters.AddWithValue("@State", client.Address.State);
-                            addressCommand.Parameters.AddWithValue("@ClientId", client.Id);
-                            addressCommand.ExecuteNonQuery();
-                     }
+                    using (NpgsqlCommand addressCommand = new NpgsqlCommand(addressQuery, connection))
+                    {
+                        addressCommand.Parameters.AddWithValue("@ZipCode", client.Address.ZipCode);
+                        addressCommand.Parameters.AddWithValue("@Street", client.Address.Street);
+                        addressCommand.Parameters.AddWithValue("@Number", client.Address.Number);
+                        addressCommand.Parameters.AddWithValue("@Complement", client.Address.Complement ?? (object)DBNull.Value);
+                        addressCommand.Parameters.AddWithValue("@Neighborhood", client.Address.Neighborhood);
+                        addressCommand.Parameters.AddWithValue("@City", client.Address.City);
+                        addressCommand.Parameters.AddWithValue("@State", client.Address.State);
+                        addressCommand.Parameters.AddWithValue("@ClientId", client.Id);
+                        addressCommand.ExecuteNonQuery();
+                    }
 
                     return true;
                 }
@@ -92,15 +92,15 @@ namespace GerenciadorProdutoECliente.Repositories
 
                 using (NpgsqlCommand addressCommand = new NpgsqlCommand(addressQuery, connection))
                 {
-                        addressCommand.Parameters.AddWithValue("@ZipCode", client.Address.ZipCode);
-                        addressCommand.Parameters.AddWithValue("@Street", client.Address.Street);
-                        addressCommand.Parameters.AddWithValue("@Number", client.Address.Number);
-                        addressCommand.Parameters.AddWithValue("@Complement", client.Address.Complement ?? (object)DBNull.Value);
-                        addressCommand.Parameters.AddWithValue("@Neighborhood", client.Address.Neighborhood);
-                        addressCommand.Parameters.AddWithValue("@City", client.Address.City);
-                        addressCommand.Parameters.AddWithValue("@State", client.Address.State);
-                        addressCommand.Parameters.AddWithValue("@ClientId", client.Id);
-                        addressCommand.ExecuteNonQuery();
+                    addressCommand.Parameters.AddWithValue("@ZipCode", client.Address.ZipCode);
+                    addressCommand.Parameters.AddWithValue("@Street", client.Address.Street);
+                    addressCommand.Parameters.AddWithValue("@Number", client.Address.Number);
+                    addressCommand.Parameters.AddWithValue("@Complement", client.Address.Complement ?? (object)DBNull.Value);
+                    addressCommand.Parameters.AddWithValue("@Neighborhood", client.Address.Neighborhood);
+                    addressCommand.Parameters.AddWithValue("@City", client.Address.City);
+                    addressCommand.Parameters.AddWithValue("@State", client.Address.State);
+                    addressCommand.Parameters.AddWithValue("@ClientId", client.Id);
+                    addressCommand.ExecuteNonQuery();
                 }
 
                 return true;
@@ -174,6 +174,37 @@ namespace GerenciadorProdutoECliente.Repositories
             }
 
             return null;  // Retorna null caso o endereço não seja encontrado
+        }
+
+        public Client GetClientByCpfOrCnpj(string cpfCnpj)
+        {
+            // Remover espaços em branco antes e depois da string
+            cpfCnpj = cpfCnpj.Trim();
+
+            // Verifica se a string está vazia
+            if (string.IsNullOrEmpty(cpfCnpj))
+            {
+                throw new ArgumentException("O identificador não pode ser vazio.");
+            }
+
+            if (cpfCnpj.Length == 11)
+            {
+                // Caso tenha 11 dígitos, é CPF
+                List<Client> clients = SearchByCpf(cpfCnpj);  // Retorna um único cliente
+                Client client = clients[0];
+                return client;
+            }
+            else if (cpfCnpj.Length == 14)
+            {
+                // Caso tenha 14 dígitos, é CNPJ
+                List<Client> clients = SearchByCnpj(cpfCnpj);  // Retorna um único cliente
+                Client client = clients[0];
+                return client;  // Retorna um único cliente
+            }
+            else
+            {
+                throw new ArgumentException("Nenhum CPF/CNPJ encontrado");
+            }
         }
 
         // Método para buscar um cliente por ID
