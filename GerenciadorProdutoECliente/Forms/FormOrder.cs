@@ -35,6 +35,8 @@ namespace GerenciadorProdutoECliente.Forms
             DisableAllControls();
 
             btnOrder.Enabled = false;
+            // Remove o título da janela
+            this.Text = ""; // Deixa o título vazio
         }
         private void InitializeMaterialSkin()
         {
