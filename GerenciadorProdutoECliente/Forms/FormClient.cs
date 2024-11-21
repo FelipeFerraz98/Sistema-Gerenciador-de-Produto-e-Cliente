@@ -28,6 +28,8 @@ namespace GerenciadorProdutoECliente.Forms
             btnClient.Enabled = false;
             _cepService = new CepService(); // Inicializa o Service
 
+            rbtnIndividual.Checked = true;
+
             // Remove o título da janela
             this.Text = ""; // Deixa o título vazio
 
@@ -79,6 +81,12 @@ namespace GerenciadorProdutoECliente.Forms
             // Remove qualquer caractere que não seja número (incluindo o '-')
             zipCode = new string(zipCode.Where(char.IsDigit).ToArray());
 
+            //Remove espaço no começo e no final
+            string phone = txtPhone.Text.Trim();
+
+            // Remove qualquer caractere que não seja número (incluindo o '-')
+            phone = new string(phone.Where(char.IsDigit).ToArray());
+
             // Cria um novo cliente
             Client newClient = new Client
             {
@@ -87,7 +95,7 @@ namespace GerenciadorProdutoECliente.Forms
                 Cnpj = clientType == ClientType.LegalEntity && cpfCnpj.Length == 14 ? cpfCnpj : null,
                 Email = txtEmail.Text,
                 ClientType = clientType,
-                Phone = txtPhone.Text,
+                Phone = phone,
                 Address = new Address
                 {
                     ZipCode = zipCode,
@@ -144,6 +152,14 @@ namespace GerenciadorProdutoECliente.Forms
                     else if (!string.IsNullOrEmpty(client.Cnpj)) // Caso CPF seja nulo, verifica se o CNPJ existe
                     {
                         cpfCnpj = Formatter.FormatCnpj(client.Cnpj);
+                    }
+
+                    // Verifica se o CPF não é nulo antes de tentar formatar
+                    string phone = null;
+
+                    if (!string.IsNullOrEmpty(client.Phone)) // Verifica se o CPF existe
+                    {
+                        phone = Formatter.FormatCpf(client.Phone);
                     }
 
                     if (cpfCnpj != null) // Caso não tenha nem CPF nem CNPJ, mostra uma mensagem
