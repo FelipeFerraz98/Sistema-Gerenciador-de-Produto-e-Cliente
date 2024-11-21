@@ -32,40 +32,40 @@ namespace GerenciadorProdutoECliente.Forms
         // Definindo os controles com os tipos do MaterialSkin
         private void InitializeComponent()
         {
-            this.txtSearch = new MaterialSingleLineTextField();
-            this.txtName = new MaterialSingleLineTextField();
-            this.txtCpfCnpj = new MaterialSingleLineTextField();
-            this.txtEmail = new MaterialSingleLineTextField();
-            this.txtPhone = new MaterialSingleLineTextField();
-            this.txtZipCode = new MaterialSingleLineTextField();
-            this.txtStreet = new MaterialSingleLineTextField();
-            this.txtNumber = new MaterialSingleLineTextField();
-            this.txtComplement = new MaterialSingleLineTextField();
-            this.txtState = new MaterialSingleLineTextField();
-            this.txtNeighborhood = new MaterialSingleLineTextField();
-            this.txtCity = new MaterialSingleLineTextField();
-            this.lblState = new MaterialLabel();
-            this.lblCity = new MaterialLabel();
-            this.lblNeighborhood = new MaterialLabel();
-            this.lblComplement = new MaterialLabel();
-            this.lblNumber = new MaterialLabel();
-            this.lblStreet = new MaterialLabel();
-            this.lblZipCode = new MaterialLabel();
-            this.lblName = new MaterialLabel();
-            this.lblCpfCnpj = new MaterialLabel();
-            this.lblEmail = new MaterialLabel();
-            this.lblPhone = new MaterialLabel();
-            this.btnSearch = new MaterialRaisedButton();
-            this.lblSearch = new MaterialLabel();
-            this.btnNew = new MaterialRaisedButton();
-            this.btnUpdate = new MaterialRaisedButton();
-            this.btnDelete = new MaterialRaisedButton();
-            this.lstClients = new ListBox();
-            this.rbtnIndividual = new MaterialRadioButton();
-            this.rbtnLegalEntity = new MaterialRadioButton();
-            this.btnClient = new MaterialRaisedButton();
-            this.btnProduct = new MaterialRaisedButton();
-            this.btnOrder = new MaterialRaisedButton();
+            this.txtSearch = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtName = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtCpfCnpj = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtEmail = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtPhone = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtZipCode = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtStreet = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtNumber = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtComplement = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtState = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtNeighborhood = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtCity = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.lblState = new MaterialSkin.Controls.MaterialLabel();
+            this.lblCity = new MaterialSkin.Controls.MaterialLabel();
+            this.lblNeighborhood = new MaterialSkin.Controls.MaterialLabel();
+            this.lblComplement = new MaterialSkin.Controls.MaterialLabel();
+            this.lblNumber = new MaterialSkin.Controls.MaterialLabel();
+            this.lblStreet = new MaterialSkin.Controls.MaterialLabel();
+            this.lblZipCode = new MaterialSkin.Controls.MaterialLabel();
+            this.lblName = new MaterialSkin.Controls.MaterialLabel();
+            this.lblCpfCnpj = new MaterialSkin.Controls.MaterialLabel();
+            this.lblEmail = new MaterialSkin.Controls.MaterialLabel();
+            this.lblPhone = new MaterialSkin.Controls.MaterialLabel();
+            this.btnSearch = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.lblSearch = new MaterialSkin.Controls.MaterialLabel();
+            this.btnNew = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnUpdate = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnDelete = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.lstClients = new System.Windows.Forms.ListBox();
+            this.rbtnIndividual = new MaterialSkin.Controls.MaterialRadioButton();
+            this.rbtnLegalEntity = new MaterialSkin.Controls.MaterialRadioButton();
+            this.btnClient = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnProduct = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnOrder = new MaterialSkin.Controls.MaterialRaisedButton();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -79,7 +79,7 @@ namespace GerenciadorProdutoECliente.Forms
             this.txtSearch.SelectedText = "";
             this.txtSearch.SelectionLength = 0;
             this.txtSearch.SelectionStart = 0;
-            this.txtSearch.Size = new System.Drawing.Size(329, 23);
+            this.txtSearch.Size = new System.Drawing.Size(377, 23);
             this.txtSearch.TabIndex = 0;
             this.txtSearch.UseSystemPasswordChar = false;
             // 
@@ -395,7 +395,7 @@ namespace GerenciadorProdutoECliente.Forms
             // btnSearch
             // 
             this.btnSearch.Depth = 0;
-            this.btnSearch.Location = new System.Drawing.Point(500, 103);
+            this.btnSearch.Location = new System.Drawing.Point(534, 103);
             this.btnSearch.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Primary = true;
@@ -411,12 +411,12 @@ namespace GerenciadorProdutoECliente.Forms
             this.lblSearch.Depth = 0;
             this.lblSearch.Font = new System.Drawing.Font("Roboto", 11F);
             this.lblSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblSearch.Location = new System.Drawing.Point(151, 87);
+            this.lblSearch.Location = new System.Drawing.Point(151, 84);
             this.lblSearch.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblSearch.Name = "lblSearch";
-            this.lblSearch.Size = new System.Drawing.Size(269, 19);
+            this.lblSearch.Size = new System.Drawing.Size(377, 19);
             this.lblSearch.TabIndex = 23;
-            this.lblSearch.Text = "Insira Nome, CPF ou CNPJ para busca:";
+            this.lblSearch.Text = "Insira Nome, CPF ou CNPJ sem pontuação para busca:";
             // 
             // btnNew
             // 
