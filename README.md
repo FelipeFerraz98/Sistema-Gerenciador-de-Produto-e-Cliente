@@ -44,7 +44,7 @@ A estrutura do código fonte foi organizada da seguinte forma:
 
     /Repositories             # Classes que acessam o banco de dados
         - CashMovementRepository.cs  # Operações no banco para movimentações de caixa
-        - CepRepository.cs           # Operações no banco para dados de CEP
+        - CepRepository.cs           # Operações na API para dados de CEP
         - ClientRepository.cs        # Operações no banco para clientes
         - OrderRepository.cs         # Operações no banco para pedidos
         - OrderItemRepository.cs     # Operações no banco para itens de pedidos
@@ -52,7 +52,7 @@ A estrutura do código fonte foi organizada da seguinte forma:
 
     /Services                 # Regras de negócio e lógica do sistema
         - CashMovementService       # Regras de negócio para movimentações de caixa
-        - CepService.cs             # Regras de negócio para dados de CEP
+        - CepService.cs             # Regras de negócio para API do CEP
         - ClientService.cs          # Regras de negócio para clientes
         - OrderService.cs           # Regras de negócio para pedidos
         - ProductService.cs         # Regras de negócio para produtos
